@@ -11,21 +11,32 @@ import CreateAccountPage from './pages/createAccount';
 import AccountPage from './pages/account';
 import TransactionPage from './pages/transaction';
 import ProfilePage from './pages/profile';
+import ConfirmTransaction from './components/ConfirmTransaction';
+import BeneficiaryPage from './pages/beneficiary';
+import HomePage from './pages/home';
+
+import { ProtectedRoute } from './ProtectedRoute';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/registration" element={<RegistrationPage />}/>
+      <Route path="/kyc" element={<KycPage />}/>
         <Route path="/createAccount" element={<CreateAccountPage />}/>
+        <Route path="/registration" element={<RegistrationPage />}/>
         <Route path="/otp" element={<OtpPage />}/>
-        <Route path="/kyc" element={<KycPage />}/>
+       
         <Route exact path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/home" element={<HomePage />}/>
 
-        <Route path="/accounts" element={<AccountPage/>} />
-        <Route path="/transactions" element={<TransactionPage/>} />  
-        <Route path="/profile" element={<ProfilePage/>} />
+        <Route element={<ProtectedRoute/>}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/accounts" element={<AccountPage/>} />
+          <Route path="/transactions" element={<TransactionPage/>} />  
+          <Route path="/profile" element={<ProfilePage/>} />
+          <Route path="/confirmTransactions" element={<ConfirmTransaction />}/>
+          <Route path="/beneficiary" element={<BeneficiaryPage/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   )

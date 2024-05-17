@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
+import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts } from 'react-icons/ai';
 
 function NavbarComponent() {
   const navigate = useNavigate();
@@ -28,6 +28,11 @@ function NavbarComponent() {
       label: 'Transactions',
       to: '/transactions',
       icon: <AiOutlineTransaction className="mr-3" />,
+    },
+    {
+      label: 'Beneficiaries',
+      to: '/beneficiary',
+      icon: <AiOutlineContacts className="mr-3" />,
     },
     {
       label: 'Profile',

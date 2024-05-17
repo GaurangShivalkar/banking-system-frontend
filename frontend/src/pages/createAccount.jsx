@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../api/axiosConfig";
 
 function CreateAccountPage() {
   const [accountType, setAccountType] = useState("Savings");
@@ -7,19 +8,24 @@ function CreateAccountPage() {
   const [branchId, setBranchId] = useState("");
   const navigate = useNavigate();
 
-  const handleAccountCreation = (e) => {
+  const handleAccountCreation = async (e) => {
     e.preventDefault();
 
     // Assume account creation logic here
 
     const accountData = {
-      accountType,
-      balance,
-      branchId,
+      customerId: "1234", // Assuming customer ID
+      accountNumber: `ACCT-${Math.floor(Math.random() * 100000)}`, // Generate account number
+      
+      accountType: accountType,
+      accountStatus: "pending",
+      balance: balance,
+     // branch: branch,
     };
 
     // Placeholder for account creation logic (replace with actual backend integration)
-    console.log("Creating Account:", accountData);
+
+    await axios.post("/api/accounts/createAccount", accountData);
 
     // After successful account creation (placeholder), navigate to the dashboard
     navigate("/dashboard");
@@ -88,7 +94,7 @@ function CreateAccountPage() {
           </label>
           <input
             type="text"
-            value="123456" // Assuming customer ID (non-editable)
+            value="1234" // Assuming customer ID (non-editable)
             readOnly
             className="w-full px-3 py-2 border rounded-md text-gray-800 bg-gray-100 focus:outline-none"
           />

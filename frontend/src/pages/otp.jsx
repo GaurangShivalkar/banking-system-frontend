@@ -1,3 +1,4 @@
+import axios from "../api/axiosConfig";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -5,11 +6,32 @@ function OtpPage() {
   const [otp, setOTP] = useState("");
   const navigate = useNavigate();
 
-  const handleOTPSubmit = (e) => {
+  const handleOTPSubmit = async (e) => {
     e.preventDefault();
-    // Perform OTP verification logic (implementation needed based on backend)
-    // For demo purposes, assume OTP verification is successful
-    navigate("/kyc"); // Redirect to KYC page after successful OTP verification
+ 
+      // Perform OTP verification logic (implementation needed based on backend)
+      const response = await axios.post("/auth/verify", {otp})
+      if(response.data == true ) {
+      const registrationData = JSON.parse(localStorage.getItem("registrationData"));
+  
+
+      // Make an API call to save user data to the backend after OTP verification
+      await axios.post("/auth/register", {
+        username: registrationData.username,
+        email: registrationData.email,
+        password: registrationData.password,
+        role: registrationData.role,
+      });
+
+      // Clear localStorage after successful registration
+     
+
+      // Redirect to the KYC page or any other page after successful registration
+      navigate("/login");
+    }
+    else {
+      throw new Error("OTP is not matching");
+      }
   };
 
   return (

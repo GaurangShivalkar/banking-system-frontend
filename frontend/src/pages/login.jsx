@@ -3,7 +3,6 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axiosConfig";
 
-
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

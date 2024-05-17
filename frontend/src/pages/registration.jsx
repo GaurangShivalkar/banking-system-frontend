@@ -9,23 +9,11 @@ function RegistrationPage() {
   const [role, setRole] = useState("user"); // Default role is 'user'
   const navigate = useNavigate();
 
-  const handleRegistration = async (e) => {
-    e.preventDefault();
-    try {
-      // Make an API call to register user (implementation needed based on backend)
-      const response = await axios.post("/auth/register", {
-        username,
-        email,
-        password,
-        role,
-      });
-
-      // Assuming successful registration, navigate to OTP page
-      navigate("/otp"); // Redirect to OTP page after successful registration
-    } catch (error) {
-      console.error("Registration failed:", error);
-      // Handle registration failure (e.g., display error message to user)
-    }
+  const handleRegistration = async (e) => { e.preventDefault();
+    localStorage.setItem("registrationData", JSON.stringify({ username, email, password, role }));
+    const response = await axios.post("/auth/sendMail/"+email)
+    console.log(response);
+    navigate("/otp"); // Redirect to OTP page after successful registration 
   };
 
   return (

@@ -1,31 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../api/axiosConfig";
 
 function KycPage() {
-  const [fullName, setFullName] = useState("");
+  const [customerName, setCustomerName] = useState("");
   const [address, setAddress] = useState("");
-  const [aadharNo, setAadharNo] = useState("");
-  const [panNo, setPanNo] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [aadharNumber, setAadharNumber] = useState("");
+  const [panNumber, setPanNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [zipcode, setZipcode] = useState("");
   const navigate = useNavigate();
 
-  const handleKYCSubmit = (e) => {
+  const handleKYCSubmit = async (e) => {
     e.preventDefault();
 
     // Assuming KYC information submission logic here
 
     const kycData = {
-      fullName,
-      address,
-      aadharNo,
-      panNo,
-      phoneNo,
-      zipCode,
+      customerName: customerName,
+      address: address,
+      aadharNumber: aadharNumber,
+      panNumber: panNumber,
+      phoneNumber: phoneNumber,
+      zipcode: zipcode,
     };
 
-    // Example submission logic (replace with actual backend integration)
-    console.log("Submitting KYC Data:", kycData);
+    console.log('Submitting KYC Data:', kycData);
+    await axios.post("/api/customers/saveCustomer", kycData);
+    
 
     // After successful submission, navigate to the dashboard or next page
     navigate("/createAccount");
@@ -39,14 +41,20 @@ function KycPage() {
           {/* Column 1 */}
           <div>
             <div className="mb-4">
-              <label htmlFor="fullName" className="block text-xl font-bold text-cyan-600 mb-2">
-                Full Name
+            {/* <input
+                type="hidden"
+                id="userId"
+                value={userId}
+                onChange={(e) => setUser(2)}
+              /> */}
+              <label htmlFor="cusomerName" className="block text-xl font-bold text-cyan-600 mb-2">
+                Customer Name
               </label>
               <input
                 type="text"
-                id="fullName"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                id="customerName"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="Enter your full name"
                 className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
                 required
@@ -67,14 +75,14 @@ function KycPage() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="aadharNo" className="block text-xl font-bold text-cyan-600 mb-2">
+              <label htmlFor="aadharNumber" className="block text-xl font-bold text-cyan-600 mb-2">
                 Aadhar Number
               </label>
               <input
                 type="text"
-                id="aadharNo"
-                value={aadharNo}
-                onChange={(e) => setAadharNo(e.target.value)}
+                id="aadharNumber"
+                value={aadharNumber}
+                onChange={(e) => setAadharNumber(e.target.value)}
                 placeholder="Enter your Aadhar number"
                 className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
                 required
@@ -84,42 +92,42 @@ function KycPage() {
           {/* Column 2 */}
           <div>
             <div className="mb-4">
-              <label htmlFor="panNo" className="block text-xl font-bold text-cyan-600 mb-2">
+              <label htmlFor="panNumber" className="block text-xl font-bold text-cyan-600 mb-2">
                 PAN Number
               </label>
               <input
                 type="text"
-                id="panNo"
-                value={panNo}
-                onChange={(e) => setPanNo(e.target.value)}
+                id="panNumber"
+                value={panNumber}
+                onChange={(e) => setPanNumber(e.target.value)}
                 placeholder="Enter your PAN number"
                 className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
                 required
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="phoneNo" className="block text-xl font-bold text-cyan-600 mb-2">
+              <label htmlFor="phoneNumber" className="block text-xl font-bold text-cyan-600 mb-2">
                 Phone Number
               </label>
               <input
                 type="text"
-                id="phoneNo"
-                value={phoneNo}
-                onChange={(e) => setPhoneNo(e.target.value)}
+                id="phoneNumber"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Enter your phone number"
                 className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
                 required
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="zipCode" className="block text-xl font-bold text-cyan-600 mb-2">
+              <label htmlFor="zipcode" className="block text-xl font-bold text-cyan-600 mb-2">
                 ZIP Code
               </label>
               <input
                 type="text"
-                id="zipCode"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
+                id="zipcode"
+                value={zipcode}
+                onChange={(e) => setZipcode(e.target.value)}
                 placeholder="Enter your ZIP code"
                 className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
                 required
