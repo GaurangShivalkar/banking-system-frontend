@@ -1,32 +1,66 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axiosConfig";
 
 function CreateAccountPage() {
-  const [accountType, setAccountType] = useState("Savings");
+  const [accountType, setAccountType] = useState("");
   const [balance, setBalance] = useState("");
   const [branchId, setBranchId] = useState("");
+  const [branches, setBranches] = useState([]);
+  const [customerId, setCustomerId] = useState("");
+
   const navigate = useNavigate();
 
+  useEffect(() => { fetchBranches(); }, []);
+  useEffect(() => { fetchCustomerId(); }, []);
+
+
+  const fetchBranches = async () => {
+    try {
+      const response = await axios.get("api/branch/showAllBranches");
+      setBranches(response.data);
+      
+    } catch (error) {
+      console.error("Error fetching branches:", error);
+    }
+  };
+  const fetchCustomerId = async () => {
+    try {
+      const panNumber = localStorage.getItem("panNumber");
+      const customerResponse = await axios.get(`/api/customers/getCustomerIdByPan`, { params: { panNumber: panNumber } });
+      setCustomerId(customerResponse.data);
+      
+    } catch (error) {
+      console.error("Error fetching customerId:", error);
+    }
+  };
+ 
   const handleAccountCreation = async (e) => {
     e.preventDefault();
 
-    // Assume account creation logic here
+    
 
     const accountData = {
-      customerId: "1234", // Assuming customer ID
-      accountNumber: `ACCT-${Math.floor(Math.random() * 100000)}`, // Generate account number
       
+
+      //customerId:
       accountType: accountType,
-      accountStatus: "pending",
       balance: balance,
-     // branch: branch,
+      customer: {
+        customerId:customerId
+      },
+      branch: {
+        branchId:branchId
+    
+      }
+      // branch: branch,
     };
 
-    // Placeholder for account creation logic (replace with actual backend integration)
+    console.log("Sending account data:", accountData);
+
 
     await axios.post("/api/accounts/createAccount", accountData);
-
+    localStorage.removeItem("panNumber");
     // After successful account creation (placeholder), navigate to the dashboard
     navigate("/dashboard");
   };
@@ -44,7 +78,9 @@ function CreateAccountPage() {
             value={accountType}
             onChange={(e) => setAccountType(e.target.value)}
             className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
+            required
           >
+            <option value="">Select Account Type</option>
             <option value="Savings">Savings</option>
             <option value="Current">Current</option>
           </select>
@@ -67,26 +103,24 @@ function CreateAccountPage() {
           <label htmlFor="branchId" className="block text-xl font-bold text-cyan-600 mb-2">
             Branch ID
           </label>
-          <input
-            type="text"
+          <label htmlFor="branchId" className="block text-sm font-medium text-gray-700">
+            Branch
+          </label>
+          <select
             id="branchId"
+            name="branchId"
             value={branchId}
             onChange={(e) => setBranchId(e.target.value)}
-            placeholder="Enter branch ID"
-            className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
             required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-xl font-bold text-cyan-600 mb-2">
-            Account Number
-          </label>
-          <input
-            type="text"
-            value={`ACCT-${Math.floor(Math.random() * 100000)}`} // Generate random account number (non-editable)
-            readOnly
-            className="w-full px-3 py-2 border rounded-md text-gray-800 bg-gray-100 focus:outline-none"
-          />
+          >
+            <option value="">Select Branch</option>
+            {branches.map((branch) => (
+              <option key={branch.branchId} value={branch.branchId}>
+                {branch.branchName}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-4">
           <label className="block text-xl font-bold text-cyan-600 mb-2">
@@ -94,7 +128,7 @@ function CreateAccountPage() {
           </label>
           <input
             type="text"
-            value="1234" // Assuming customer ID (non-editable)
+            value={customerId} // Assuming customer ID (non-editable)
             readOnly
             className="w-full px-3 py-2 border rounded-md text-gray-800 bg-gray-100 focus:outline-none"
           />

@@ -5,13 +5,15 @@ const TransactionOptions = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    accountNumber: '',
-    beneficiaryAccountNumber: '',
-    branchId: '',
-    amount: '',
-    billType: '',
-    billOwner: '',
-    upiId: ''
+    customerId:'',
+    transactionMethod:'',
+    transactionStatus:'',
+    description:'',
+    sourceAccountId:'',
+    destinationAccountId:'',
+    amount:'',
+    changedBalance:'',
+    beneficiaryId:'',
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +40,7 @@ const TransactionOptions = () => {
             <input
               type="text"
               name="accountNumber"
-              value={formData.accountNumber}
+              value={formData.destinationAccountId}
               onChange={handleInputChange}
               placeholder="Receiver Account Number"
               className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -54,13 +56,19 @@ const TransactionOptions = () => {
             <input
               type="text"
               name="yourAccountNumber"
-              value={formData.yourAccountNumber}
+              value={formData.sourceAccountId}
               onChange={handleInputChange}
               placeholder="Your Account Number"
               className="w-full mt-4 p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
+            <input
+              type="hidden"
+              name="transactionMethod"
+              value={formData.transactionMethod}
+            />
           </div>
         );
+
       case 'beneficiaryTransfer':
         return (
           <div className="mt-4">
@@ -98,6 +106,7 @@ const TransactionOptions = () => {
             />
           </div>
         );
+
       case 'billPayment':
         return (
           <div className="mt-4">

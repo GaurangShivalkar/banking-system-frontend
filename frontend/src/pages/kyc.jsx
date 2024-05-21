@@ -27,7 +27,7 @@ function KycPage() {
 
     console.log('Submitting KYC Data:', kycData);
     await axios.post("/api/customers/saveCustomer", kycData);
-    
+    localStorage.setItem("panNumber", `${panNumber}`);
 
     // After successful submission, navigate to the dashboard or next page
     navigate("/createAccount");

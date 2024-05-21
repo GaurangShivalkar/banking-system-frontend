@@ -14,6 +14,7 @@ import ProfilePage from './pages/profile';
 import ConfirmTransaction from './components/ConfirmTransaction';
 import BeneficiaryPage from './pages/beneficiary';
 import HomePage from './pages/home';
+import PaymentPage from './pages/paymentPage';
 
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/accounts" element={<AccountPage/>} />
           <Route path="/transactions" element={<TransactionPage/>} />  
+          <Route path='/payment' element={<PaymentPage/>}/>
           <Route path="/profile" element={<ProfilePage/>} />
           <Route path="/confirmTransactions" element={<ConfirmTransaction />}/>
           <Route path="/beneficiary" element={<BeneficiaryPage/>}/>

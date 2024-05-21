@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import NavbarComponent from "../components/navbarComponent";
+import NavbarComponent from "../components/NavbarComponent";
 import axios from "../api/axiosConfig";
 const BeneficiaryPage = () => {
     const [name, setName] = useState("");
@@ -7,7 +7,7 @@ const BeneficiaryPage = () => {
      const [bankName, setBankName] = useState("");
      const [branchId, setBranchId] = useState("");
     const [branches, setBranches] = useState([]);
-
+    const token = localStorage.getItem("token");
     // Fetch branches data from backend when component mounts
     useEffect(() => {fetchBranches();}, []);
 
@@ -27,13 +27,15 @@ const BeneficiaryPage = () => {
             name,
             accountNumber,
             bankName,
-           branchId
+            branch: {
+                branchId:branchId
+              }
         };
 
         try {
-           await axios.post("/api/beneficiaries/addBeneficiary", formData);
+           await axios.post("/api/beneficiaries/addBeneficiary", formData, {headers:{Authorization: `Bearer ${token}` }});
 
-            console.log("Beneficiary saved successfully!");
+           alert('Beneficiary has been added sucessfully');
             
         } catch (error) {
                 console.error('Error adding beneficiary:', error);
