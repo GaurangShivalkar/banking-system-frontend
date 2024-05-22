@@ -1,11 +1,31 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import axios from '../api/axiosConfig';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts } from 'react-icons/ai';
 
 function NavbarComponent() {
   const navigate = useNavigate();
+  useEffect(() => {
+    async function fetchCustomerId() {
+      try {
+       
+        const token = localStorage.getItem("token");
+        const userResponse = await axios.get("/auth/user", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const userData = userResponse.data;
+        const email = userData.email;
+        
+        const customerResponse = await axios.get(`/api/users/getCustomerId/${email}`);
+        localStorage.setItem("customerId", customerResponse.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
+    fetchCustomerId();
+  }, []);
   const handleLogout = () => {
     // Remove the token from localStorage
     localStorage.removeItem('token');

@@ -21,10 +21,13 @@ function OtpPage() {
         email: registrationData.email,
         password: registrationData.password,
         role: registrationData.role,
+        customer: {
+          customerId:registrationData.customerId
+        } 
       });
 
       // Clear localStorage after successful registration
-     
+      localStorage.removeItem("registrationData");
 
       // Redirect to the KYC page or any other page after successful registration
       navigate("/login");

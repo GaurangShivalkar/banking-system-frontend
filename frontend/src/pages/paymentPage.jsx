@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import axios from '../api/axiosConfig';
 const PaymentPage = () => {
   const [transactionMethod, setTransactionMethod] = useState('');
   const [transactionStatus, setTransactionStatus] = useState('');
@@ -11,29 +11,25 @@ const PaymentPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const transactionData = {
-      transactionMethod,
-      transactionStatus,
-      description,
-      sourceAccountId,
-      destinationAccountId,
-      amount,
+      transactionMethod: transactionMethod,
+      transactionStatus: transactionStatus,
+      description: description,
+      
+      sourceAccountId: sourceAccountId,
+      
+      destinationAccountId: destinationAccountId,
+    
+      customer: {
+        customerId: "666996"
+      },
+      amount: amount
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/transactions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(transactionData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Something went wrong');
-      }
-
-      const result = await response.json();
-      console.log(result);
+      const token = localStorage.getItem("token");
+      const response = await axios.post('/api/transactions/makeTransaction',
+        transactionData, {headers:{Authorization: `Bearer ${token}` }})
+      
       // Handle success scenario
     } catch (error) {
       console.error('Error:', error);

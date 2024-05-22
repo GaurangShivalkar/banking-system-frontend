@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axiosConfig";
 
@@ -7,10 +7,21 @@ function RegistrationPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user"); // Default role is 'user'
+  const [customerId, setCustomerId] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => { fetchCustomerId(); }, []);
+  const fetchCustomerId = () => {
+    try {
+      setCustomerId(localStorage.getItem("customerId"));
+      
+    } catch (error) {
+      console.error("Error fetching customer:", error);
+    }
+  };
   const handleRegistration = async (e) => { e.preventDefault();
-    localStorage.setItem("registrationData", JSON.stringify({ username, email, password, role }));
+    
+    localStorage.setItem("registrationData", JSON.stringify({ username, email, password, role, customerId }));
     const response = await axios.post("/auth/sendMail/"+email)
     console.log(response);
     navigate("/otp"); // Redirect to OTP page after successful registration 
@@ -76,6 +87,14 @@ function RegistrationPage() {
             <option value="user">User</option>
             <option value="admin">Admin</option>
           </select>
+        </div>
+        <div>
+          <input 
+            id="customerId"
+            className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
+            value={customerId}
+            readOnly
+          />
         </div>
         <button
           type="submit"

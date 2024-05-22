@@ -26,9 +26,9 @@ function CreateAccountPage() {
   };
   const fetchCustomerId = async () => {
     try {
-      const panNumber = localStorage.getItem("panNumber");
-      const customerResponse = await axios.get(`/api/customers/getCustomerIdByPan`, { params: { panNumber: panNumber } });
-      setCustomerId(customerResponse.data);
+      const custId = localStorage.getItem("customerId");
+      //const customerResponse = await axios.get(`/api/customers/getCustomerIdByPan`, { params: { panNumber: panNumber } });
+      setCustomerId(custId);
       
     } catch (error) {
       console.error("Error fetching customerId:", error);
@@ -60,7 +60,7 @@ function CreateAccountPage() {
 
 
     await axios.post("/api/accounts/createAccount", accountData);
-    localStorage.removeItem("panNumber");
+    
     // After successful account creation (placeholder), navigate to the dashboard
     navigate("/dashboard");
   };

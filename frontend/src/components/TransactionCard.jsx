@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "../api/axiosConfig";
 
 function TransactionCard() {
-  const transactions = [
-    { name: "Spotify ", date: "25 Jan 2021", type: "Shopping", card: "1234 ****", status: "Pending", value: "$150" },
-    { name: "Mobile charge", date: "25 Jan 2021", type: "Service", card: "1234 ****", status: "Completed", value: "$340" },
-    { name: "Emilly Wilson", date: "25 Jan 2021", type: "Transfer", card: "1234 ****", status: "Completed", value: "+$780" }
-  ];
+  const [transactions, setTransactions] = useState([]);
+  const sourceAccountId = "3942176860"; // Replace with actual source account ID or fetch it dynamically
+
+  useEffect(() => {
+    async function fetchTransactions() {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`/api/transactions/getTransactionBySourceAccountId/${sourceAccountId}`, {headers:{Authorization: `Bearer ${token}` }});
+        setTransactions(response.data);
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    }
+
+    fetchTransactions();
+  }, [sourceAccountId]);
 
   return (
     <div className="flex flex-col w-full px-4 mt-7">
@@ -13,24 +25,24 @@ function TransactionCard() {
         <h2 className="text-xl font-bold text-blue-950">Last Transactions</h2>
       </header>
       <div className="flex flex-col gap-5">
-        {transactions.map((transaction, index) => (
+        {transactions.map((transaction) => (
           <div
-            key={index}
+            key={transaction.transactionId}
             className="flex justify-between p-4 bg-white rounded shadow-sm max-md:flex-col max-md:gap-4"
           >
             <div className="flex flex-col text-sm text-blue-950">
-              <p className="text-base">{transaction.name}</p>
-              <time className="mt-1 text-neutral-500">{transaction.date}</time>
+              <p className="text-base">{transaction.description || "No Description"}</p>
+              <p className="text-neutral-500">{transaction.Timestamp}</p>
             </div>
             <div className="flex flex-col text-sm text-zinc-400">
-              <p>{transaction.type}</p>
-              <p className="text-neutral-500">{transaction.card}</p>
+              <p>{transaction.transactionMethod}</p>
+              <p className="text-neutral-500">{transaction.destinationAccountId}</p>
             </div>
             <div className="flex flex-col text-sm text-neutral-500">
-              <p>{transaction.status}</p>
+              <p>{transaction.transactionStatus}</p>
             </div>
-            <div className={`flex flex-col text-sm ${transaction.status === "Pending" ? "text-red-600" : "text-green-600"}`}>
-              <p>{transaction.value}</p>
+            <div className={`flex flex-col text-sm ${transaction.transactionStatus === "Pending" ? "text-red-600" : "text-green-600"}`}>
+              <p>${transaction.amount.toFixed(2)}</p>
             </div>
           </div>
         ))}
