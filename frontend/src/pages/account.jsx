@@ -6,7 +6,7 @@ const AccountPage = () => {
   return (
     <div className="flex h-screen">
       <NavbarComponent />
-      <div className="flex flex-col flex-grow p-6 md:ml-[20%] bg-gray-100">
+      <div className="flex flex-col flex-grow p-6 md:ml-[20%] ">
       <AccountDetails />
       <TransactionCard />
       </div>

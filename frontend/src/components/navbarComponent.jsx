@@ -1,22 +1,24 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import axios from '../api/axiosConfig';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts } from 'react-icons/ai';
 
 function NavbarComponent() {
+  
   const navigate = useNavigate();
+
   useEffect(() => {
     async function fetchCustomerId() {
       try {
-       
+
         const token = localStorage.getItem("token");
         const userResponse = await axios.get("/auth/user", {
           headers: { Authorization: `Bearer ${token}` }
         });
         const userData = userResponse.data;
         const email = userData.email;
-        
+
         const customerResponse = await axios.get(`/api/users/getCustomerId/${email}`);
         localStorage.setItem("customerId", customerResponse.data);
       } catch (error) {
@@ -26,6 +28,7 @@ function NavbarComponent() {
 
     fetchCustomerId();
   }, []);
+
   const handleLogout = () => {
     // Remove the token from localStorage
     localStorage.removeItem('token');
@@ -67,38 +70,54 @@ function NavbarComponent() {
   ];
 
   return (
-    <div className="bg-cyan-200 min-h-screen w-full md:w-1/5 md:fixed md:left-0 md:top-0 py-6 px-4">
-      <div className="text-center md:text-left">
-        <h1 className="text-2xl font-bold text-gray-800 mb-8">Banking Dashboard</h1>
-        <nav>
-          <ul>
+
+
+    <div>
+      <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        <span className="sr-only">Open sidebar</span>
+        <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+        </svg>
+      </button>
+
+      <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+          <a href="https://flowbite.com/" className="flex items-center ps-2.5 mb-5">
+            <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
+            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">ENQ BANK</span>
+          </a>
+
+          <ul className="space-y-2 font-medium">
             {menuItems.map((item, index) => (
-              <li key={index} className="mb-4">
+              <li key={index}>
                 {item.to ? (
                   <Link
                     to={item.to}
-                    className="flex items-center text-gray-700 hover:text-blue-600"
+                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >
-                    {item.icon}
-                    <span>{item.label}</span>
+                    <p className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+                      {item.icon}</p>
+                    <span className="ms-3">{item.label}</span>
                   </Link>
+
+
                 ) : (
                   <button
                     onClick={item.onClick}
-                    className="flex items-center text-gray-700 hover:text-red-600"
+                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >
-                    {item.icon}
-                    <span>{item.label}</span>
+                    <p className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+                      {item.icon}</p>
+                    <span className="ms-3">{item.label}</span>
                   </button>
                 )}
               </li>
             ))}
           </ul>
-        </nav>
-      </div>
-      <div className="mt-auto text-center md:text-left">
-        <p className="text-sm text-gray-600">Version 1.0</p>
-      </div>
+        </div>
+      </aside>
+
+
     </div>
   );
 }
