@@ -14,7 +14,7 @@ import ProfilePage from './pages/profile';
 import ConfirmTransaction from './components/ConfirmTransaction';
 import BeneficiaryPage from './pages/beneficiary';
 import HomePage from './pages/home';
-import PaymentPage from './pages/paymentPage';
+import PaymentPage from './pages/payment';
 
 import { ProtectedRoute } from './ProtectedRoute';
 

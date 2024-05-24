@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import axios from '../api/axiosConfig';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts } from 'react-icons/ai';
+import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts, AiOutlinePayCircle } from 'react-icons/ai';
 
 function NavbarComponent() {
   
@@ -51,6 +51,11 @@ function NavbarComponent() {
       label: 'Transactions',
       to: '/transactions',
       icon: <AiOutlineTransaction className="mr-3" />,
+    },
+    {
+      label: 'payment',
+      to: '/payment',
+      icon: <AiOutlinePayCircle className="mr-3" />,
     },
     {
       label: 'Beneficiaries',

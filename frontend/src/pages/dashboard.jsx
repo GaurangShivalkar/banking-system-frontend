@@ -92,7 +92,7 @@ function UserCard() {
   ];
 
   return (
-    <div class="p-4 sm:ml-64">
+    <div className="p-4 sm:ml-64">
 
       
     <section className="flex flex-col  bg-white shadow-sm">

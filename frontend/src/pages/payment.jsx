@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosConfig';
+import NavbarComponent from '../components/NavbarComponent';
+import PaymentAlt from '../components/PaymentAlt';
+
 const PaymentPage = () => {
   const [transactionMethod, setTransactionMethod] = useState('');
   const [transactionStatus, setTransactionStatus] = useState('');
@@ -37,7 +40,9 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div >
+    <NavbarComponent />
+    {/* <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6">Make a Payment</h1>
         <form onSubmit={handleSubmit}>
@@ -103,7 +108,9 @@ const PaymentPage = () => {
           </button>
         </form>
       </div>
-    </div>
+    </div>*/}
+    <PaymentAlt />
+    </div> 
   );
 };
 

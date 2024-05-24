@@ -29,7 +29,7 @@ const AccountDetails = () => {
   }, []);
 
   return (
-    <div className="flex flex-col flex-grow md:ml-1/5 p-4">
+    <div className="p-4 sm:ml-64">
       <section className="px-2 max-md:max-w-full">
         <div className="flex flex-wrap gap-5 max-md:flex-col">
           {accounts.map((account, index) => (
