@@ -8,7 +8,8 @@ const OwnBankBeneficiary = () => {
   const [emailId, setEmailId] = useState("");
   const [beneficiaryType, setBeneficiaryType] = useState("");
   const token = localStorage.getItem("token");
-  
+  const customerId = localStorage.getItem("customerId");
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formDataOwn = {
@@ -16,6 +17,9 @@ const OwnBankBeneficiary = () => {
         accountNumber,
         beneficiaryType: "INTERNAL",
         emailId,
+        customer: {
+        customerId: customerId
+      }
 
     }
     try {

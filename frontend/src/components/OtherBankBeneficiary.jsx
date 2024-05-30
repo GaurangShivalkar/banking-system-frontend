@@ -10,7 +10,7 @@ const OtherBankBeneficiary = () => {
   const [branches, setBranches] = useState([]);
 
   const token = localStorage.getItem("token");
-
+  const customerId = localStorage.getItem("customerId");
   useEffect(() => {
 
     const fetchBranches = async () => {
@@ -39,6 +39,9 @@ const OtherBankBeneficiary = () => {
                 branchId: branchId
             },
       emailId,
+      customer: {
+        customerId: customerId
+      }
     }
     try {
 
