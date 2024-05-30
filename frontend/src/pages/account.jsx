@@ -1,15 +1,20 @@
 import React from 'react';
 import NavbarComponent from '../components/NavbarComponent';
 import AccountDetails from '../components/AccountDetails';
-import TransactionCard from '../components/TransactionCard';
+// import TransactionCard from '../components/TransactionCard';
+import AccountOverview from '../components/AccountOverview';
+
 const AccountPage = () => {
   return (
-    <div className="flex h-screen">
+    <div >
       <NavbarComponent />
-      <div>
-      <AccountDetails />
-      <TransactionCard />
-      </div>
+     
+        <AccountOverview />\
+        <AccountDetails />
+       
+      {/*  
+      <TransactionCard /> */}
+      
     </div>
     
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosConfig';
 import NavbarComponent from '../components/NavbarComponent';
-import PaymentAlt from '../components/PaymentAlt';
+import PaymentAlt from '../components/paymentAlt';
 
 const PaymentPage = () => {
   const [transactionMethod, setTransactionMethod] = useState('');

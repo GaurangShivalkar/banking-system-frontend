@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import axios from "../api/axiosConfig";
+import BeneficiaryType from "../components/BeneficiaryType";
 
 function AddForm() {
     const [activeTab, setActiveTab] = useState('own');
@@ -211,7 +212,8 @@ const BeneficiaryPage = () => {
         <div className="flex h-screen">
             {/* Sidebar */}
             <NavbarComponent />
-            <div><AddForm /></div>
+            {/* <div><AddForm /></div> */}
+            <div><BeneficiaryType /></div>
         </div>
 
     );
