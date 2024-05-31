@@ -1,71 +1,51 @@
 import React, { useEffect } from 'react';
-import axios from '../api/axiosConfig';
+
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts, AiOutlinePayCircle } from 'react-icons/ai';
 
-function NavbarComponent() {
+function AdminNavbarComponent() {
   
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   async function fetchCustomerId() {
-  //     try {
 
-  //       const token = localStorage.getItem("token");
-  //       const userResponse = await axios.get("/auth/user", {
-  //         headers: { Authorization: `Bearer ${token}` }
-  //       });
-  //       const userData = userResponse.data;
-  //       const email = userData.email;
-
-  //       const customerResponse = await axios.get(`/api/users/getCustomerId/${email}`);
-  //       localStorage.setItem("customerId", customerResponse.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-
-  //   fetchCustomerId();
-  // }, []);
 
   const handleLogout = () => {
-    // Remove the token from localStorage
+    
     localStorage.removeItem('token');
-    localStorage.removeItem('customerId')
-    // Redirect to the login page or any other appropriate page
+    
     navigate('/login');
   };
 
   const menuItems = [
     {
-      label: 'Dashboard',
-      to: '/dashboard',
+      label: 'Admin',
+      to: '/admin',
       icon: <AiOutlineDashboard className="mr-3" />,
     },
     {
       label: 'Accounts',
-      to: '/accounts',
+      to: '/adminAccounts',
       icon: <AiOutlineBank className="mr-3" />,
     },
     {
       label: 'Transactions',
-      to: '/transactions',
+      to: '/adminTransactions',
       icon: <AiOutlineTransaction className="mr-3" />,
     },
     {
-      label: 'payment',
-      to: '/payment',
+      label: 'Branches',
+      to: '/adminBranches',
       icon: <AiOutlinePayCircle className="mr-3" />,
     },
     {
       label: 'Beneficiaries',
-      to: '/beneficiary',
+      to: '/adminBeneficiaries',
       icon: <AiOutlineContacts className="mr-3" />,
     },
     {
-      label: 'Profile',
-      to: '/profile',
+      label: 'Customers',
+      to: '/adminCustomers',
       icon: <AiOutlineUser className="mr-3" />,
     },
     {
@@ -128,4 +108,4 @@ function NavbarComponent() {
   );
 }
 
-export default NavbarComponent;
+export default AdminNavbarComponent;

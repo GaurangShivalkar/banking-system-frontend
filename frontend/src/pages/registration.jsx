@@ -20,7 +20,7 @@ function RegistrationPage() {
     }
   };
   const handleRegistration = async (e) => { e.preventDefault();
-    
+
     localStorage.setItem("registrationData", JSON.stringify({ username, email, password, role, customerId }));
     const response = await axios.post("/auth/sendMail/"+email)
     console.log(response);
@@ -84,8 +84,8 @@ function RegistrationPage() {
             className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
             required
           >
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
           </select>
         </div>
         <div>

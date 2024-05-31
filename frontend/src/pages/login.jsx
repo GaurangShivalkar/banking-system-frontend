@@ -17,8 +17,26 @@ function LoginPage() {
       // Store the token in localStorage
       localStorage.setItem("token", `${token}`);
 
+      //get data from token
+      const userResponse = await axios.get("/auth/user", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const userData = userResponse.data;
+     
+      const role = userData.role;
+      if(role == "USER") {
+       
+        const email = userData.email;
+
+        const customerResponse = await axios.get(`/api/users/getCustomerId/${email}`);
+        localStorage.setItem("customerId", customerResponse.data);
+        navigate("/dashboard");
+      }
+      else if(role == "ADMIN") {
+        navigate("/admin")
+      }
    
-      navigate("/dashboard");
+      
 
       // Redirect to another page or perform other actions upon successful login
       // Example: window.location.href = '/dashboard';

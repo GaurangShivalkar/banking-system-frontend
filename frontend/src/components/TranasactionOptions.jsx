@@ -59,7 +59,6 @@ const TransactionOptions = () => {
       transactionStatus: 'pending',
       description: description,
       sourceAccountId: sourceAccountId,
-      
       customer: {
         customerId: customerId
       },

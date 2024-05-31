@@ -6,6 +6,9 @@ import LoginPage from './pages/login';
 import RegistrationPage from './pages/registration';
 import OtpPage from './pages/otp';
 import KycPage from './pages/kyc';
+
+import { ProtectedRoute } from './ProtectedRoute';
+
 import DashboardPage from './pages/dashboard';
 import CreateAccountPage from './pages/createAccount';
 import AccountPage from './pages/account';
@@ -16,7 +19,14 @@ import BeneficiaryPage from './pages/beneficiary';
 import HomePage from './pages/home';
 import PaymentPage from './pages/payment';
 
-import { ProtectedRoute } from './ProtectedRoute';
+import Admin from './pages/admin/Admin';
+import AdminAccounts from './pages/admin/AdminAccounts';
+import AdminTransactions from './pages/admin/AdminTransactions';
+import AdminBeneficiaries from './pages/admin/AdminBeneficiaries';
+import AdminBranches from './pages/admin/AdminBranches';
+import AdminCustomers from './pages/admin/AdminCustomers';
+
+
 
 export default function App() {
   return (
@@ -31,6 +41,14 @@ export default function App() {
         <Route path="/home" element={<HomePage />}/>
 
         <Route element={<ProtectedRoute/>}>
+          <Route path="/admin" element={<Admin/>}/>
+          <Route path="/adminAccounts" element={<AdminAccounts/>}/>
+          <Route path="/adminTransactions" element={<AdminTransactions/>}/>
+          <Route path="/adminBeneficiaries" element={<AdminBeneficiaries/>}/>
+          <Route path="/adminBranches" element={<AdminBranches/>}/>
+          <Route path="/adminCustomers" element={<AdminCustomers/>}/>
+          
+
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/accounts" element={<AccountPage/>} />
           <Route path="/transactions" element={<TransactionPage/>} />  

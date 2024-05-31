@@ -14,10 +14,6 @@ function Header() {
     navigate("/registration");
   };
 
-
-
-
-
   return (
 
 
