@@ -70,7 +70,7 @@ const TransactionList = () => {
                 <td className="py-2 px-4 border">{transaction.description}</td>
                 <td className="py-2 px-4 border">{transaction.beneficiary.accountNumber}</td>
                 <td className="py-2 px-4 border">{transaction.sourceAccountId}</td>
-                <td className="py-2 px-4 border">{transaction.customer.name}</td>
+                <td className="py-2 px-4 border">{transaction.customer.customerName}</td>
                 <td className="py-2 px-4 border">{transaction.beneficiary.name}</td>
                 <td className="py-2 px-4 border">{transaction.transactionStatus}</td>
                 <td className="py-2 px-4 border">{transaction.transactionMethod}</td>
