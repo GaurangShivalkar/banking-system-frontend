@@ -36,8 +36,8 @@ const AccountOverview = () => {
         <h1 className="text-2xl font-semibold mb-6">Accounts</h1>
         <div className="flex space-x-8 mb-8">
           <a href="#" className="text-purple-500 border-b-2 border-purple-500 pb-2">Accounts</a>
-          <a href="#" className="text-gray-500 hover:text-gray-300">Linked accounts</a>
-          <a href="#" className="text-gray-500 hover:text-gray-300">Transfer rules</a>
+          {/* <a href="#" className="text-gray-500 hover:text-gray-300">Linked accounts</a>
+          <a href="#" className="text-gray-500 hover:text-gray-300">Transfer rules</a> */}
         </div>
         <div className="mb-8">
           <p className="text-green-900">Global balance</p>

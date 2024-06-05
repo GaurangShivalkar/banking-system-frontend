@@ -63,7 +63,7 @@ const AccountList = () => {
                 <td className="py-2 px-4 border">{account.accountId}</td>
                 <td className="py-2 px-4 border">{account.accountNumber}</td>
                 <td className="py-2 px-4 border">
-                  {new Date(account.accountTimestamp).toLocaleDateString()}
+                  {account.accountTimestamp}
                 </td>
                 <td className="py-2 px-4 border">{account.accountType}</td>
                 <td className="py-2 px-4 border">{account.balance}</td>

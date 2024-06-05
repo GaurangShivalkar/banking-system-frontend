@@ -62,7 +62,7 @@ function CreateAccountPage() {
     await axios.post("/api/accounts/createAccount", accountData);
     
     // After successful account creation (placeholder), navigate to the dashboard
-    navigate("/dashboard");
+    navigate("/register");
   };
 
   return (
