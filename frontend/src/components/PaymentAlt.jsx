@@ -65,7 +65,8 @@ const PaymentAlt = () => {
       amount: amount,
       beneficiary: {
         beneficiaryId: beneficiaryId
-      }
+      },
+      
     };
     console.log(transactionData)
     // Convert transactionData to a JSON string
