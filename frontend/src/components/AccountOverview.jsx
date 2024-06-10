@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../api/axiosConfig";
+import { Link } from 'react-router-dom';
 import AccountDetails from "./AccountDetails"; // Import the AccountDetails component
 
 const AccountOverview = () => {
@@ -67,7 +68,7 @@ const AccountOverview = () => {
             <div className="flex justify-between items-center mt-4 text-gray-500">
               <button className="flex items-center space-x-2">
                 <span className="text-2xl">+</span>
-                <span>Add an account</span>
+                <Link to="/createAccount"><span>Add an account</span></Link>
               </button>
             </div>
           </div>

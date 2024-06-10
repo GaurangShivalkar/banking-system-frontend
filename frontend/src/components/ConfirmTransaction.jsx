@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axiosConfig';
 import NavbarComponent from './NavbarComponent';
+import SuccessComponent from './Sucess';
 
 const ConfirmTransaction = () => {
   const [transactionData, setTransactionData] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Retrieve and parse transactionData from localStorage
     const transactionDataString = localStorage.getItem("transactionData");
     if (transactionDataString) {
       const transactionDataObj = JSON.parse(transactionDataString);
@@ -30,15 +31,17 @@ const ConfirmTransaction = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-
       localStorage.removeItem('transactionData');
-      alert('Transaction response:', response);
-      // Handle success scenario (e.g., navigate to a success page or show a success message)
-      // Adjust the path as needed
+      setShowSuccess(true);
     } catch (error) {
       console.error('Error submitting transaction:', error);
       alert('An error occurred while making the transaction');
     }
+  };
+
+  const handleCloseSuccess = () => {
+    setShowSuccess(false);
+    navigate('/payment');
   };
 
   if (!transactionData) {
@@ -47,7 +50,6 @@ const ConfirmTransaction = () => {
 
   return (
     <div>
-
       <NavbarComponent />
       <div className='p-4 sm:ml-64'>
         <div className="max-w-md mx-auto bg-white p-8 rounded shadow-md mt-10">
@@ -63,8 +65,8 @@ const ConfirmTransaction = () => {
             Make Payment
           </button>
         </div>
-
       </div>
+      {showSuccess && <SuccessComponent onClose={handleCloseSuccess} />}
     </div>
   );
 };

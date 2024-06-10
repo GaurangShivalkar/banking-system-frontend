@@ -3,7 +3,7 @@ import axios from "../api/axiosConfig";
 
 function TransactionCard() {
   const [transactions, setTransactions] = useState([]);
-  const [sourceAccountId, setSourceAccountId] = useState(''); // Replace with actual source account ID or fetch it dynamically
+  const [sourceAccountId, setSourceAccountId] = useState('');
   const [accountList, setAccountList] = useState([]);
   const customerId = localStorage.getItem('customerId');
 
@@ -22,18 +22,14 @@ function TransactionCard() {
         console.error('Error fetching account details:', error);
       }
     };
-    async function fetchTransactions() {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(`/api/transactions/getTransactionBySourceAccountId/${sourceAccountId}`, { headers: { Authorization: `Bearer ${token}` } });
-        setTransactions(response.data);
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-      }
-    }
 
     fetchAccountDetails();
-    fetchTransactions();
+  }, [customerId]);
+
+  useEffect(() => {
+    if (sourceAccountId) {
+      fetchTransactions();
+    }
   }, [sourceAccountId]);
 
   const renderAccountOptions = () => (
@@ -43,26 +39,43 @@ function TransactionCard() {
       </option>
     ))
   );
+
+  async function fetchTransactions() {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`/api/transactions/getTransactionBySourceAccountId/${sourceAccountId}`, { headers: { Authorization: `Bearer ${token}` } });
+      setTransactions(response.data);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    }
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    fetchTransactions();
+  };
+
   return (
     <div className="flex flex-col w-full px-4 mt-7">
       <header className="mb-4">
         <h2 className="text-xl font-bold text-blue-950">Last Transactions</h2>
       </header>
-      <select
-        id="source-account"
-        value={sourceAccountId}
-        onChange={(e) => setSourceAccountId(e.target.value)}
-        className="w-full px-3 py-2 border rounded"
-      >
-        <option value="" disabled type="hidden">Select an account</option>
-        {renderAccountOptions()}
-      </select>
-      <div className="flex flex-col gap-5">
+      <form onSubmit={handleFormSubmit}>
+        <select
+          id="source-account"
+          value={sourceAccountId}
+          onChange={(e) => setSourceAccountId(e.target.value)}
+          className="w-full px-3 py-2 border rounded"
+        >
+          <option value="" disabled>Select an account</option>
+          {renderAccountOptions()}
+        </select>
+      </form>
+      <div className="flex flex-col gap-5 mt-4">
         <table className="min-w-full bg-white border-collapse shadow-lg">
           <thead className="bg-gray-800 text-white">
             <tr>
               <th className="py-2 px-4 border">ID</th>
-
               <th className="py-2 px-4 border">Amount</th>
               <th className="py-2 px-4 border">Changed Balance</th>
               <th className="py-2 px-4 border">Description</th>
@@ -76,14 +89,9 @@ function TransactionCard() {
           </thead>
           <tbody>
             {transactions.map((transaction, index) => (
-              <tr
-                key={index}
-                className="text-center odd:bg-gray-100 even:bg-gray-200"
-              >
+              <tr key={index} className="text-center odd:bg-gray-100 even:bg-gray-200">
                 <td className="py-2 px-4 border">{transaction.transactionId}</td>
-
-
-                <td className="py-2 px-4 border">{transaction.amount}</td>
+                <td className={`font-bold ${transaction.beneficiary.accountNumber === sourceAccountId ? 'text-green-500' : 'text-red-500'}`}>{transaction.amount}</td>
                 <td className="py-2 px-4 border">{transaction.changedBalance}</td>
                 <td className="py-2 px-4 border">{transaction.description}</td>
                 <td className="py-2 px-4 border">{transaction.beneficiary.accountNumber}</td>
