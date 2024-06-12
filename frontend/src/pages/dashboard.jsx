@@ -11,11 +11,11 @@ const Dashboard = () => {
    
     <div className="min-h-screen  text-white p-4 sm:ml-64">
       <AccountBalance />
-      <div className="flex flex-wrap gap-4 mt-4">
+      {/* <div className="flex flex-wrap gap-4 mt-4">
         <MoneyInOut title="Money Out Last 30 Days" />
         <MoneyInOut title="Money In Last 30 Days" />
       </div>
-      <RecentTransactions /> 
+      <RecentTransactions />  */}
     </div>
     </div>
   );

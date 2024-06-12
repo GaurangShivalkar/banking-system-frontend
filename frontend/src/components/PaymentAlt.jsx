@@ -9,10 +9,11 @@ const PaymentAlt = () => {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [sourceAccountId, setSourceAccountId] = useState('');
-  const [destinationAccountId, setDestinationAccountId] = useState('');
+  // const [destinationAccountId, setDestinationAccountId] = useState('');
 
   const [beneficiaryId, setBeneficiaryId] = useState('');
-  const [transactionMethod, setTransactionMethod] = useState('internal');
+  const [transactionType, setTransactionType] = useState('');
+  // const [transactionMethod, setTransactionMethod] = useState('internal');
 
   const token = localStorage.getItem('token');
   const customerId = localStorage.getItem('customerId');
@@ -57,6 +58,7 @@ const PaymentAlt = () => {
     const transactionData = {
 
       transactionStatus: 'pending',
+      transactionType: transactionType,
       description: description,
       sourceAccountId: sourceAccountId,
       customer: {
@@ -144,6 +146,23 @@ const PaymentAlt = () => {
         </div>
 
         <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="transactionType">
+            Type of Payment
+          </label>
+          <select
+            id="transactionType"
+            value={transactionType}
+            onChange={(e) => setTransactionType(e.target.value)}
+            className="w-full px-3 py-2 border rounded"
+          >
+            <option value="" disabled>Select a payment type</option>
+            <option value="IMPS">IMPS Payment</option>
+            <option value="NEFT">NEFT Payment</option>
+            <option value="RTGS">RTGS Payment</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
             Amount
           </label>
@@ -156,6 +175,7 @@ const PaymentAlt = () => {
             placeholder="Enter amount"
           />
         </div>
+      
         <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded mt-4">
           Confirm Transaction
         </button>

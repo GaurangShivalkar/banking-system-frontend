@@ -7,9 +7,10 @@ import SuccessComponent from './Sucess';
 const ConfirmTransaction = () => {
   const [transactionData, setTransactionData] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-
+  let response = null;
   useEffect(() => {
     const transactionDataString = localStorage.getItem("transactionData");
     if (transactionDataString) {
@@ -27,15 +28,19 @@ const ConfirmTransaction = () => {
     try {
       console.log('Submitting transaction:', transactionData);
 
-      const response = await axios.post('/api/transactions/makeTransaction', transactionData, {
+      response = await axios.post('/api/transactions/makeTransaction', transactionData, {
         headers: { Authorization: `Bearer ${token}` }
       });
-
+     
+      
+  
       localStorage.removeItem('transactionData');
+
       setShowSuccess(true);
     } catch (error) {
       console.error('Error submitting transaction:', error);
-      alert('An error occurred while making the transaction');
+      //console.log("This is response"+error?.response?.data?.message);
+      alert(error.response.data.message);
     }
   };
 

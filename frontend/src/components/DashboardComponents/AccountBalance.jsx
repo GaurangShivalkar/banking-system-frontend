@@ -11,7 +11,7 @@ const AccountBalance = () => {
       try {
         // Fetch customer information
         const customerResponse = await axios.get(`/api/customers/showCustomer/${customerId}`);
-        setCustomer(customerResponse.data);
+        setCustomer(customerResponse.data.customerName);
 
         // Fetch accounts information
         const accountsResponse = await axios.get(`/api/accounts/getAccountsByCustomerId/${customerId}`);
@@ -27,7 +27,7 @@ const AccountBalance = () => {
   return (
     <div>
       <header className="mb-6">
-        {/* <h1 className="text-black text-3xl font-bold">Welcome {customer.customerName}</h1> */}
+        <h1 className="text-black text-3xl font-bold">Welcome {customer}</h1> 
         <p className="text-gray-400">Everything remains safe and up-to-date with your account since your last visit. We're glad to have you here!</p>
       </header>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

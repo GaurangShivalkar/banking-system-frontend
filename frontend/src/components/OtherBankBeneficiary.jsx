@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../api/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 
-const OtherBankBeneficiary = () => {
+const OtherBankBeneficiary = ({ onBack }) => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [branchId, setBranchId] = useState("");
@@ -134,7 +136,13 @@ const OtherBankBeneficiary = () => {
             className="w-full px-3 py-2 border rounded"
           />
         </div>
-
+        <button 
+              type="button" 
+              onClick={onBack}
+              className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-gray-500"
+            >
+              Back
+            </button>
         <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">
           Add Beneficiary
         </button>
