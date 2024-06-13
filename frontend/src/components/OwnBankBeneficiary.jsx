@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosConfig';
 
-const OwnBankBeneficiary = ({ onClose}) => {
+const OwnBankBeneficiary = ({ onClose }) => {
   const [name, setName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [emailId, setEmailId] = useState("");
@@ -19,6 +19,7 @@ const OwnBankBeneficiary = ({ onClose}) => {
         customerId: customerId
       }
     };
+
     try {
       await axios.post("/api/beneficiaries/addBeneficiary", formDataOwn, { headers: { Authorization: `Bearer ${token}` } });
       alert('Beneficiary has been added successfully');
@@ -29,8 +30,8 @@ const OwnBankBeneficiary = ({ onClose}) => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <div className="w-full bg-white p-8 shadow-md rounded">
+    
         <h2 className="text-2xl font-semibold mb-6">Add a Beneficiary</h2>
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
@@ -65,7 +66,9 @@ const OwnBankBeneficiary = ({ onClose}) => {
             />
           </div>
           <div className="flex justify-between items-center mt-6">
-            <button type="button" onClick={onClose}
+            <button 
+              type="button" 
+              onClick={onClose}
               className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-gray-500"
             >
               Back
@@ -79,7 +82,7 @@ const OwnBankBeneficiary = ({ onClose}) => {
           </div>
         </form>
       </div>
-    </div>
+ 
   );
 };
 

@@ -6,9 +6,9 @@ import BeneficiaryType from "../components/BeneficiaryType";
 const BeneficiaryPage = () => {
 
     return (
-        <div className="flex h-screen">
+        <div className="flex flex-col h-screen">
             <NavbarComponent />
-            <div className="sm:ml-64 p-4"><BeneficiaryType /></div>
+            <div className="p-4 sm:ml-64"><BeneficiaryType /></div>
         </div>
 
     );
