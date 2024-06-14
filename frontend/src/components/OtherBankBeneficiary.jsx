@@ -145,7 +145,7 @@ const OtherBankBeneficiary = ({ onClose }) => {
             </button>
             <button 
               type="submit" 
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-blue-500"
+              className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-blue-500"
             >
               Add
             </button>

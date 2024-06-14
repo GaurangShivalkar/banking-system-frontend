@@ -14,6 +14,7 @@ const TransactionList = () => {
     try {
       const response = await axios.get("/api/transactions/showTransaction",{ headers: { Authorization: `Bearer ${token}` }});
       setTransactions(response.data);
+
       setLoading(false);
     } catch (error) {
       console.error("Error fetching accounts data:", error);
@@ -32,6 +33,21 @@ const TransactionList = () => {
       console.error("Error updating account status:", error);
     }
   };
+
+  const formatTimestamp = (timestamp) => {
+    const [year, month, day, hour, minute, second] = timestamp;
+
+    // Create JavaScript Date object
+    const jsDate = new Date(year, month - 1, day, hour, minute, second);
+
+    // Format the date into a desired string representation
+    const formattedDate = jsDate.toDateString();
+  
+    
+    return formattedDate;
+};
+  
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -63,8 +79,8 @@ const TransactionList = () => {
                 className="text-center odd:bg-gray-100 even:bg-gray-200"
               >
                 <td className="py-2 px-4 border">{transaction.transactionId}</td>
-                <td className="py-2 px-4 border">{transaction.Timestamp}</td>
-              
+                <td className="py-2 px-4 border">{formatTimestamp(transaction.timestamp)}</td>
+                <td className="py-2 px-4 border">{transaction.timestamp}</td>
                 <td className="py-2 px-4 border">{transaction.amount}</td>
                 <td className="py-2 px-4 border">{transaction.changedBalance}</td>
                 <td className="py-2 px-4 border">{transaction.description}</td>

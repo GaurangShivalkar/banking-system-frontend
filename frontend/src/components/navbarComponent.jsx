@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import axios from '../api/axiosConfig';
+
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts, AiOutlinePayCircle } from 'react-icons/ai';
@@ -8,32 +8,13 @@ function NavbarComponent() {
   
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   async function fetchCustomerId() {
-  //     try {
 
-  //       const token = localStorage.getItem("token");
-  //       const userResponse = await axios.get("/auth/user", {
-  //         headers: { Authorization: `Bearer ${token}` }
-  //       });
-  //       const userData = userResponse.data;
-  //       const email = userData.email;
-
-  //       const customerResponse = await axios.get(`/api/users/getCustomerId/${email}`);
-  //       localStorage.setItem("customerId", customerResponse.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-
-  //   fetchCustomerId();
-  // }, []);
 
   const handleLogout = () => {
-    // Remove the token from localStorage
+    
     localStorage.removeItem('token');
     localStorage.removeItem('customerId')
-    // Redirect to the login page or any other appropriate page
+  
     navigate('/login');
   };
 
@@ -88,8 +69,8 @@ function NavbarComponent() {
 
       <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-          <a href="https://flowbite.com/" className="flex items-center ps-2.5 mb-5">
-            <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
+          <a href="https://github.com/GaurangShivalkar" className="flex items-center ps-2.5 mb-5">
+            <img src="/vite.svg" className="h-6 me-3 sm:h-7" alt="vite Logo" />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">ENQ BANK</span>
           </a>
 

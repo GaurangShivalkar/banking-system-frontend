@@ -30,7 +30,13 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/kyc" element={<KycPage />}/>
+
+        <Route path="/kyc"element={<KycPage />}/>
+
+        {/* <Route path="/createAccount" element={<div><Stepper /><CreateAccountPage /></div>}/>
+        <Route path="/register" element={<div><Stepper /><RegistrationPage /></div> }/>
+        <Route path="/otp" element={<div><Stepper /><OtpPage /></div>}/> */}
+
         <Route path="/createAccount" element={<CreateAccountPage />}/>
         <Route path="/registration" element={<RegistrationPage />}/>
         <Route path="/otp" element={<OtpPage />}/>

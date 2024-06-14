@@ -120,7 +120,7 @@ const AccountSetting = () => {
           <p className="mt-2">Can't remember your current password. <a className="text-sm font-semibold text-blue-600 underline decoration-2" href="#">Recover Account</a></p>
           <button
             onClick={handleChangePassword}
-            className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-gray-800 focus:outline-none focus:ring focus:border-blue-300"
           >
             Save Password
           </button>

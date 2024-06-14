@@ -60,13 +60,13 @@ const EmailChange = ({ email, userId, onClose }) => {
         </div>
         <div className="flex justify-end space-x-4">
           <button
-            className="rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-700"
+            className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-gray-800"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
-            className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+            className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-gray-800"
             onClick={handleChangeEmail}
           >
             Save

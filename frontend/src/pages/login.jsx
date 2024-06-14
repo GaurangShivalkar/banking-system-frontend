@@ -46,7 +46,7 @@ function LoginPage() {
     }
   };
   return (
-    <section className="flex flex-col items-center justify-center h-screen bg-cyan-100">
+    <section className="flex flex-col items-center justify-center h-screen bg-gray-800">
       <form onSubmit={handleLogin} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 className="text-3xl font-bold text-cyan-800 mb-6 text-center">Login to Your Account</h1>
         <div className="mb-4">
@@ -79,7 +79,7 @@ function LoginPage() {
         </div>
         <button
           type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-md focus:outline-none focus:ring focus:ring-green-300"
+          className="w-full bg-blue-600 hover:bg-gray-800 text-white font-bold py-2 rounded-md focus:outline-none focus:ring focus:ring-green-300"
         >
           Sign In
         </button>

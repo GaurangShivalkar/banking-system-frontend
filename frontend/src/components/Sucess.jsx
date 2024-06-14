@@ -22,7 +22,7 @@ const SuccessComponent = ({ onClose }) => {
         <h2 className="text-2xl font-bold text-center mb-4">Payment Successful!</h2>
         <button
           onClick={onClose}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md w-full hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md w-full hover:bg-gray-800 focus:outline-none focus:ring focus:border-blue-300"
         >
           OK
         </button>

@@ -49,7 +49,7 @@ const BeneficiaryType = () => {
 
                 {transaction.limit && <p className="text-sm text-gray-600 mb-4">{transaction.limit}</p>}
                 <button 
-                  className="flex mt-4 bg-gray-600 text-white items-center py-2 px-4 rounded hover:bg-gray-800"
+                  className="flex mt-4 bg-blue-600 text-white items-center py-2 px-4 rounded hover:bg-gray-800"
                   onClick={() => handleButtonClick(transaction.component)}>
                   {transaction.buttonText}
                 </button>

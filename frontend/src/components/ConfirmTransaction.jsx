@@ -65,7 +65,7 @@ const ConfirmTransaction = () => {
           <p><strong>Description:</strong> {transactionData.description}</p>
           <button
             onClick={handleMakePayment}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+            className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4 hover:bg-gray-600 focus:outline-none focus:ring focus:border-blue-300"
           >
             Make Payment
           </button>
