@@ -7,13 +7,23 @@ const AccountOverview = () => {
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null); // State to track the selected account
   const [drawerOpen, setDrawerOpen] = useState(false); // State to control drawer visibility
+  const [totalBalance, setTotalBalance] = useState(0);
 
   useEffect(() => {
     async function fetchAccountDetails() {
       try {
         const customerId = localStorage.getItem("customerId");
+        // const [accountsResponse, balanceResponse] = await Promise.all([
+        //   axios.get("/api/accounts/getAccountsByCustomerId/" + customerId),
+        //   axios.get("/sumOfAccounts/" + customerId)
+        // ]);
         const response = await axios.get("/api/accounts/getAccountsByCustomerId/" + customerId);
-        setAccounts(response.data); // Assuming response.data is an array of account details
+        const total = await axios.get("api/accounts/sumOfAccounts/" + customerId);
+        setTotalBalance(total.data);
+      
+        setAccounts(response.data); 
+        
+
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +52,7 @@ const AccountOverview = () => {
         </div>
         <div className="mb-8">
           <p className="text-green-900">Global balance</p>
-          <p className="text-3xl text-black font-semibold">$15,389.22</p>
+           <p className="text-3xl text-black font-semibold">₹ {totalBalance}</p> 
         </div>
         <div className="bg-gray-800 rounded-lg shadow-md overflow-hidden">
           <div className="p-4 border-b border-gray-700">
