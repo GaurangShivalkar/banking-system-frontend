@@ -1,24 +1,45 @@
-import React from 'react';
-import NavbarComponent from '../components/NavbarComponent'
-import AccountBalance from '../components/DashboardComponents/AccountBalance';
-import MoneyInOut from '../components/DashboardComponents/MoneyInOut';
-import RecentTransactions from '../components/DashboardComponents/RecentTransactions';
+import React, { useState } from 'react';
+import NavbarComponent from '../components/NavbarComponent';
+import AccountData from '../components/DashboardComponents/AccountData';
+import BeneficiaryData from '../components/DashboardComponents/BeneficiaryData';
+import TransactionCard from '../components/TransactionCard';
+import AccountSelector from '../components/AccountSelector';
+import MonthlyStats from '../components/DashboardComponents/MonthlyStat';
+
+import CustomerData from '../components/DashboardComponents/CustomerData';
 
 const Dashboard = () => {
+  const [sourceAccountId, setSourceAccountId] = useState('');
+
+  const monthlyStats = [
+    { week: 'Mar 1 - 7', amount: 50000 },
+    { week: 'Mar 8 - 14', amount: 100000 },
+    { week: 'Mar 15 - 21', amount: 150000 },
+    { week: 'Mar 22 - 28', amount: 200000 },
+    { week: 'Final wk', amount: 250000 },
+  ];
+
   return (
     <div>
       <NavbarComponent/>
-   
-    <div className="min-h-screen  text-white p-4 sm:ml-64">
-      <AccountBalance />
-      {/* <div className="flex flex-wrap gap-4 mt-4">
-        <MoneyInOut title="Money Out Last 30 Days" />
-        <MoneyInOut title="Money In Last 30 Days" />
+      <div className="min-h-screen p-4 sm:ml-64">
+        <CustomerData/>
+        <AccountSelector sendDataToParent={setSourceAccountId}/>
+        <AccountData sourceAccountId={sourceAccountId} />
+        <div className="mt-4 grid grid-cols-3 gap-4">
+          <div className="col-span-2">
+            <div className="h-96 overflow-y-auto"> {/* Adjust height as needed */}
+              <TransactionCard sourceAccountId={sourceAccountId} />
+            </div>
+            <MonthlyStats stats={monthlyStats} />
+          </div>
+          <BeneficiaryData />
+        </div>
       </div>
-      <RecentTransactions />  */}
-    </div>
     </div>
   );
 };
 
 export default Dashboard;
+
+

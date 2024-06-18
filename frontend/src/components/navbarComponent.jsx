@@ -1,20 +1,23 @@
-import React, { useEffect } from 'react';
-
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts, AiOutlinePayCircle } from 'react-icons/ai';
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import {
+  AiOutlineDashboard,
+  AiOutlineBank,
+  AiOutlineTransaction,
+  AiOutlineUser,
+  AiOutlineLogout,
+  AiOutlineContacts,
+  AiOutlinePayCircle
+} from 'react-icons/ai';
 
 function NavbarComponent() {
-  
   const navigate = useNavigate();
-
-
+  const location = useLocation();
+  const [activeItem, setActiveItem] = useState(location.pathname);
 
   const handleLogout = () => {
-    
     localStorage.removeItem('token');
-    localStorage.removeItem('customerId')
-  
+    localStorage.removeItem('customerId');
     navigate('/login');
   };
 
@@ -35,7 +38,7 @@ function NavbarComponent() {
       icon: <AiOutlineTransaction className="mr-3" />,
     },
     {
-      label: 'payment',
+      label: 'Payment',
       to: '/payment',
       icon: <AiOutlinePayCircle className="mr-3" />,
     },
@@ -57,8 +60,6 @@ function NavbarComponent() {
   ];
 
   return (
-
-
     <div>
       <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
         <span className="sr-only">Open sidebar</span>
@@ -80,21 +81,25 @@ function NavbarComponent() {
                 {item.to ? (
                   <Link
                     to={item.to}
-                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                    className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${activeItem === item.to ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                    onClick={() => setActiveItem(item.to)}
                   >
-                    <p className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                      {item.icon}</p>
+                    <p className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true">
+                      {item.icon}
+                    </p>
                     <span className="ms-3">{item.label}</span>
                   </Link>
-
-
                 ) : (
                   <button
-                    onClick={item.onClick}
-                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                    onClick={() => {
+                      item.onClick();
+                      setActiveItem('');
+                    }}
+                    className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${activeItem === item.label ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
                   >
-                    <p className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                      {item.icon}</p>
+                    <p className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true">
+                      {item.icon}
+                    </p>
                     <span className="ms-3">{item.label}</span>
                   </button>
                 )}
@@ -103,8 +108,6 @@ function NavbarComponent() {
           </ul>
         </div>
       </aside>
-
-
     </div>
   );
 }
