@@ -6,15 +6,15 @@ const TransactionList = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
+
   useEffect(() => {
     fetchTransactions();
   }, []);
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get("/api/transactions/showTransaction",{ headers: { Authorization: `Bearer ${token}` }});
+      const response = await axios.get("/api/transactions/showTransaction", { headers: { Authorization: `Bearer ${token}` } });
       setTransactions(response.data);
-
       setLoading(false);
     } catch (error) {
       console.error("Error fetching accounts data:", error);
@@ -27,7 +27,7 @@ const TransactionList = () => {
     try {
       await axios.put(`/api/transactions/updateTransactionStatus/${transactionId}`, {
         transactionStatus: newStatus,
-      },{ headers: { Authorization: `Bearer ${token}` }});
+      }, { headers: { Authorization: `Bearer ${token}` } });
       fetchTransactions();
     } catch (error) {
       console.error("Error updating account status:", error);
@@ -42,12 +42,8 @@ const TransactionList = () => {
 
     // Format the date into a desired string representation
     const formattedDate = jsDate.toDateString();
-  
-    
     return formattedDate;
-};
-  
-
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -59,7 +55,7 @@ const TransactionList = () => {
         <table className="min-w-full bg-white border-collapse shadow-lg">
           <thead className="bg-gray-800 text-white">
             <tr>
-              <th className="py-2 px-4 border">ID</th>
+              {/* <th className="py-2 px-4 border">ID</th> */}
               <th className="py-2 px-4 border">Timestamp</th>
               <th className="py-2 px-4 border">Amount</th>
               <th className="py-2 px-4 border">Changed Balance</th>
@@ -68,8 +64,9 @@ const TransactionList = () => {
               <th className="py-2 px-4 border">Source Account</th>
               <th className="py-2 px-4 border">Customer</th>
               <th className="py-2 px-4 border">Beneficiary Name</th>
-              <th className="py-2 px-4 border">Status</th>
+              {/* <th className="py-2 px-4 border">Status</th> */}
               <th className="py-2 px-4 border">Method</th>
+              <th className="py-2 px-4 border">Verify Status</th>
             </tr>
           </thead>
           <tbody>
@@ -78,9 +75,8 @@ const TransactionList = () => {
                 key={index}
                 className="text-center odd:bg-gray-100 even:bg-gray-200"
               >
-                <td className="py-2 px-4 border">{transaction.transactionId}</td>
+                {/* <td className="py-2 px-4 border">{transaction.transactionId}</td> */}
                 <td className="py-2 px-4 border">{formatTimestamp(transaction.timestamp)}</td>
-                <td className="py-2 px-4 border">{transaction.timestamp}</td>
                 <td className="py-2 px-4 border">{transaction.amount}</td>
                 <td className="py-2 px-4 border">{transaction.changedBalance}</td>
                 <td className="py-2 px-4 border">{transaction.description}</td>
@@ -88,7 +84,7 @@ const TransactionList = () => {
                 <td className="py-2 px-4 border">{transaction.sourceAccountId}</td>
                 <td className="py-2 px-4 border">{transaction.customer.customerName}</td>
                 <td className="py-2 px-4 border">{transaction.beneficiary.name}</td>
-                <td className="py-2 px-4 border">{transaction.transactionStatus}</td>
+                {/* <td className="py-2 px-4 border">{transaction.transactionStatus}</td> */}
                 <td className="py-2 px-4 border">{transaction.transactionMethod}</td>
                 <td className="py-2 px-4 border">
                   <label className="flex items-center cursor-pointer">
@@ -111,7 +107,7 @@ const TransactionList = () => {
                       ></div>
                     </div>
                     <span className="ml-3 text-gray-700">
-                      {transaction.transactionStatus === "success" ? "Success" : "Pending"}
+                      {transaction.transactionStatus === "success" ? "Verified" : "Pending"}
                     </span>
                   </label>
                 </td>
