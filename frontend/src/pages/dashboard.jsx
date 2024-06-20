@@ -31,7 +31,7 @@ const Dashboard = () => {
             <div className="h-96 overflow-y-auto"> {/* Adjust height as needed */}
               <TransactionCard sourceAccountId={sourceAccountId} />
             </div>
-            <MonthlyStats stats={monthlyStats} />
+            <MonthlyStats sourceAccountId={sourceAccountId} />
           </div>
           <BeneficiaryData />
         </div>
