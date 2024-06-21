@@ -1,33 +1,31 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend, PointElement } from 'chart.js';
+import axios from '../../api/axiosConfig';
 
 // Register the necessary elements with Chart.js
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  PointElement
-);
+ChartJS.register(CategoryScale,  LinearScale, LineElement, Title, Tooltip, Legend, PointElement);
+
+const MonthlyStat = ({ sourceAccountId }) => {
 const [barData, setBarData] = useState([]);
-
-
+const token = localStorage.getItem("token");
+const sai = sourceAccountId;
 useEffect(() => {
   const transactionBar = async () => {
     try {
-        const response = await axios.get(`/api/transactions/getTransactionBySourceAccountId/${sourceAccountId}`, { headers: { Authorization: `Bearer ${token}` } }); // Assuming your backend is running on the same host
+        
+        const response = await axios.get("/api/transactions/changedBalance/"+sourceAccountId, { headers: { Authorization: `Bearer ${token}` } }); // Assuming your backend is running on the same host
         setBarData(response.data); 
         console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
     }
   };
+  if (sourceAccountId) {
   transactionBar();
+  }
   
-  }, []);
+  }, [sourceAccountId]);
 const data = {
   labels: barData.map(stat => stat.date),
   datasets: [
@@ -42,29 +40,8 @@ const data = {
   ],
 };
 
-const options = {
-  plugins: {
-    legend: {
-      labels: {
-        color: 'white',
-      },
-    },
-  },
-  scales: {
-    x: {
-      ticks: {
-        color: 'white',
-      },
-    },
-    y: {
-      ticks: {
-        color: 'white',
-      },
-    },
-  },
-};
+const options = {plugins: { legend: {labels: {color: 'white', }, }, }, scales: {x: {ticks: {color: 'white', }, }, y: {ticks: {color: 'white', }, }, }, };
 
-const MonthlyStats = () => {
   return (
     <div className="bg-gray-800 p-4 rounded-lg shadow-lg mt-4">
       <h3 className="text-lg text-white">Monthly Statistics</h3>
@@ -75,4 +52,4 @@ const MonthlyStats = () => {
   );
 };
 
-export default MonthlyStats;
+export default MonthlyStat;

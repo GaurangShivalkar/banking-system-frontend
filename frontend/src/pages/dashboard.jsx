@@ -4,7 +4,7 @@ import AccountData from '../components/DashboardComponents/AccountData';
 import BeneficiaryData from '../components/DashboardComponents/BeneficiaryData';
 import TransactionCard from '../components/TransactionCard';
 import AccountSelector from '../components/AccountSelector';
-import MonthlyStats from '../components/DashboardComponents/MonthlyStat';
+import MonthlyStat from '../components/DashboardComponents/MonthlyStat';
 
 import CustomerData from '../components/DashboardComponents/CustomerData';
 
@@ -31,7 +31,7 @@ const Dashboard = () => {
             <div className="h-96 overflow-y-auto"> {/* Adjust height as needed */}
               <TransactionCard sourceAccountId={sourceAccountId} />
             </div>
-            <MonthlyStats sourceAccountId={sourceAccountId} />
+            <MonthlyStat sourceAccountId={sourceAccountId} />
           </div>
           <BeneficiaryData />
         </div>
