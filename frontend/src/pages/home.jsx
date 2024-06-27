@@ -59,7 +59,7 @@ function MainSection() {
   const navigate = useNavigate();
   const handleCreateAccount = () => {
     // Navigate to the create account route
-    navigate("/createAccount");
+    navigate("/kyc");
   };
 
   return (

@@ -21,7 +21,7 @@ const Admin = () => {
     const fetchTotalData = async () => {
       try {
           const response = await axios.get('/api/admin/getTotal', { headers: { Authorization: `Bearer ${token}` } }); // Assuming your backend is running on the same host
-        
+          setTotal(response.data);
       } catch (error) {
           console.error('Error fetching data:', error);
       }

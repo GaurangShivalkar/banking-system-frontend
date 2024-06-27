@@ -35,14 +35,8 @@ function CreateAccountPage() {
     }
   };
  
-  const handleAccountCreation = async (e) => {
-    e.preventDefault();
-
-    
-
+  const handleAccountCreation = async (e) => {e.preventDefault();
     const accountData = {
-      
-
       //customerId:
       accountType: accountType,
       balance: balance,
@@ -51,18 +45,17 @@ function CreateAccountPage() {
       },
       branch: {
         branchId:branchId
-    
       }
-      // branch: branch,
     };
-
     console.log("Sending account data:", accountData);
-
-
     await axios.post("/api/accounts/createAccount", accountData);
+    const listAcc = await axios.get("api/accounts/getAccountsByCustomerId/"+customerId);
+    if(listAcc.data.length === 1){
+      navigate("/registration");
+    } 
+    else{
     
-    // After successful account creation (placeholder), navigate to the dashboard
-    navigate("/register");
+      navigate("/accounts")}
   };
 
   return (

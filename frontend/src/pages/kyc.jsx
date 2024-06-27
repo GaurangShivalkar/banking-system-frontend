@@ -9,6 +9,7 @@ function KycPage() {
   const [panNumber, setPanNumber] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const handleKYCSubmit = async (e) => {
@@ -21,6 +22,7 @@ function KycPage() {
       panNumber: panNumber,
       phoneNumber: phoneNumber,
       zipcode: zipcode,
+      email: email,
     };
 
     console.log('Submitting KYC Data:', kycData);
@@ -39,12 +41,6 @@ function KycPage() {
           {/* Column 1 */}
           <div>
             <div className="mb-4">
-            {/* <input
-                type="hidden"
-                id="userId"
-                value={userId}
-                onChange={(e) => setUser(2)}
-              /> */}
               <label htmlFor="cusomerName" className="block text-xl font-bold text-cyan-600 mb-2">
                 Customer Name
               </label>
@@ -58,6 +54,22 @@ function KycPage() {
                 required
               />
             </div>
+         
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-xl font-bold text-cyan-600 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your Email"
+                className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
+                required
+              />
+            </div>
+
             <div className="mb-4">
               <label htmlFor="address" className="block text-xl font-bold text-cyan-600 mb-2">
                 Address

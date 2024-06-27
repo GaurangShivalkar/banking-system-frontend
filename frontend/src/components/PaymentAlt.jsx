@@ -5,7 +5,7 @@ import axios from '../api/axiosConfig';
 const PaymentAlt = () => {
   const [accountList, setAccountList] = useState([]);
   const [beneficiaryList, setBeneficiaryList] = useState([]);
-
+  
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [sourceAccountId, setSourceAccountId] = useState('');
@@ -68,7 +68,6 @@ const PaymentAlt = () => {
       beneficiary: {
         beneficiaryId: beneficiaryId
       },
-      
     };
     console.log(transactionData)
     // Convert transactionData to a JSON string
@@ -99,7 +98,7 @@ const PaymentAlt = () => {
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-6 mt-10">
       <form onSubmit={handleSubmit}>
-        <h1 className="text-2xl font-bold mb-4">Third Party Funds Transfer</h1>
+        <h1 className="text-2xl font-bold mb-4">Funds Transfer</h1>
 
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="source-account">

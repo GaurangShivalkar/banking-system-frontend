@@ -13,10 +13,7 @@ const AccountOverview = () => {
     async function fetchAccountDetails() {
       try {
         const customerId = localStorage.getItem("customerId");
-        // const [accountsResponse, balanceResponse] = await Promise.all([
-        //   axios.get("/api/accounts/getAccountsByCustomerId/" + customerId),
-        //   axios.get("/sumOfAccounts/" + customerId)
-        // ]);
+     
         const response = await axios.get("/api/accounts/getAccountsByCustomerId/" + customerId);
         const total = await axios.get("api/accounts/sumOfAccounts/" + customerId);
         setTotalBalance(total.data);

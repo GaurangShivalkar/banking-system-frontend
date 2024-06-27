@@ -81,7 +81,7 @@ const TransactionCard = ({sourceAccountId}) => {
                 <tr key={index} className="text-center odd:bg-gray-100 even:bg-gray-200 hover:bg-gray-300">
                   {/* <td className="py-2 px-4 border">{transaction.transactionId}</td> */}
                   <td className={`py-2 px-4 border font-bold ${transaction.beneficiary.accountNumber === sourceAccountId ? 'text-green-500' : 'text-red-500'}`}>{transaction.amount}</td>
-                  <td className="py-2 px-4 border">{transaction.changedBalance}</td>
+                  <td className="py-2 px-4 border">{transaction.beneficiary.accountNumber === sourceAccountId ? transaction.receiverBalance : transaction.changedBalance}</td>
                   <td className="py-2 px-4 border">{transaction.description}</td>
                   <td className="py-2 px-4 border">{transaction.destinationAccountId}</td>
                   <td className="py-2 px-4 border">{transaction.sourceAccountId}</td>
