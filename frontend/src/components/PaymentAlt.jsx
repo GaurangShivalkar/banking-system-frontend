@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axiosConfig';
+import DepositPage from './Deposit';
 
 const PaymentAlt = () => {
   const [accountList, setAccountList] = useState([]);
@@ -9,11 +10,13 @@ const PaymentAlt = () => {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [sourceAccountId, setSourceAccountId] = useState('');
-  // const [destinationAccountId, setDestinationAccountId] = useState('');
+  
 
   const [beneficiaryId, setBeneficiaryId] = useState('');
   const [transactionType, setTransactionType] = useState('');
   // const [transactionMethod, setTransactionMethod] = useState('internal');
+
+  const [showDeposit, setShowDeposit] = useState(false);
 
   const token = localStorage.getItem('token');
   const customerId = localStorage.getItem('customerId');
@@ -96,7 +99,10 @@ const PaymentAlt = () => {
   );
 
   return (
+    <>
+
     <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-6 mt-10">
+
       <form onSubmit={handleSubmit}>
         <h1 className="text-2xl font-bold mb-4">Funds Transfer</h1>
 
@@ -180,6 +186,7 @@ const PaymentAlt = () => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

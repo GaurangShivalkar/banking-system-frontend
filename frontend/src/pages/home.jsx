@@ -67,11 +67,11 @@ function MainSection() {
       <div className="bg-header-mobile bg-custom-mobile-header-size absolute w-full h-full bg-no-repeat lg:hidden"></div>
       <div className="bg-header-desktop absolute w-full h-full bg-no-repeat hidden lg:block bg-left -right-42.6%"></div>
       <div className="bg-image-mockups absolute z-20 w-full h-full bg-no-repeat bg-top -top-12 md:-top-16 bg-custom-mobile-mockup-size lg:hidden"></div>
-      <div className="container min-h-screen relative z-10 pt-16"> {/* Added pt-16 to push content below the navbar */}
+      <div className="container min-h-screen relative z-10 pt-16"> 
         <div className="h-full flex flex-col justify-end pb-4 lg:pb-0 lg:w-96 lg:justify-center">
           <div className="h-1/2 flex flex-col justify-center items-center text-center lg:items-start lg:text-left">
             <h1 className="text-4xl lg:text-5xl text-primary-dark-blue pb-5">
-              Next generation digital banking
+              Digital Banking
             </h1>
             <p className="text-neutral-grayish-blue text-xs lg:text-base leading-5 mb-7">
               Take your financial life online. Your Easybank account will be a
@@ -159,7 +159,7 @@ function Footer() {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
               <a href="https://flowbite.com/" className="flex items-center">
-                  <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 me-3" alt="FlowBite Logo" />
+                  <img src="/vite.svg" className="h-6 me-3 sm:h-7" alt="vite Logo" />
                   <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ENQ BANK</span>
               </a>
           </div>
@@ -201,7 +201,7 @@ function Footer() {
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" className="hover:underline">Flowbite™</a>. All Rights Reserved.
+          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" className="hover:underline">ENQ Bank™</a>. All Rights Reserved.
           </span>
           <div className="flex mt-4 sm:justify-center sm:mt-0">
               <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">

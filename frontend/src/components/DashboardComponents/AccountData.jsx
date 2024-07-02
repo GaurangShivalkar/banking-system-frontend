@@ -46,17 +46,16 @@ const AccountData = ({ sourceAccountId }) => {
         <div className="grid grid-cols-2 gap-4">
             <Card title="Total Balance" amount={accountData.balance} />
             <Card title="Total Credits" amount={credits} />
-            <Card title="Total Debits" amount={debits} />
-            <Card title="Total Loans" amount="0" /> 
+            <Card title="Total Debits" amount={debits} color="red" />
         </div>
     );
 };
 
-const Card = ({ title, amount }) => (
-  <div className="bg-gray-800 p-4 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2x">
-    <h3 className="text-lg text-white">{title}</h3>
-    <p className="text-2xl text-green-400">₹ {amount}</p>
-  </div>
+const Card = ({ title, amount, color }) => (
+    <div className={`bg-gray-800 p-4 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2x ${color === 'red' ? 'text-red-500' : 'text-green-400'}`}>
+        <h3 className="text-lg text-white">{title}</h3>
+        <p className="text-2xl">₹ {amount}</p>
+    </div>
 );
 
 export default AccountData;

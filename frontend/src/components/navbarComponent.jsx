@@ -18,7 +18,7 @@ function NavbarComponent() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('customerId');
-    navigate('/login');
+    navigate('/');
   };
 
   const menuItems = [
