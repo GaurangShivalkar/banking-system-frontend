@@ -6,6 +6,10 @@ const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [filterType, setFilterType] = useState('');
+  const [filterValue, setFilterValue] = useState('');
+  const [filteredList, setFilteredList] = useState([]);
+
   useEffect(() => {
     fetchCustomers();
   }, []);
@@ -14,12 +18,32 @@ const CustomerList = () => {
     try {
       const response = await axios.get("/api/customers/showAllCustomer");
       setCustomers(response.data);
+      setFilteredList(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching customers data:", error);
       setLoading(false);
     }
   };
+
+  const applyFilter = () => {
+    let filtered = [...customers];
+
+    if (filterType && filterValue) {
+        switch (filterType) {
+            case 'zipcode':
+                filtered = filtered.filter(customer => customer.zipcode.toString().includes(filterValue));
+                break;
+                case 'status':
+                  filtered = filtered.filter(customer => customer.status.includes(filterValue));
+                  break;
+           
+            default:
+                break;
+        }
+    }
+    setFilteredList(filtered);
+};
 
   const toggleStatus = async (customerId, currentStatus) => {
     const newStatus = currentStatus === "inactive" ? "active" : "inactive";
@@ -39,7 +63,34 @@ const CustomerList = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <div className="mb-4">
+        <select value={filterType} onChange={(e) => { setFilterType(e.target.value); setFilterValue(''); }} className="p-2 border rounded mb-2">
+          <option value="">Select Filter</option>
+          <option value="zipcode">By Zipcode</option>
+          <option value="status">By Status</option>
+        
+        </select>
+        {filterType === 'zipcode' && (
+          <input type="text" placeholder="ZIPCODE" value={filterValue} onChange={(e) => setFilterValue(e.target.value)} className="p-2 border rounded mb-2" />
+        )}
+               {filterType === 'status' && (
+                    <div className="mb-2">
+                        <label className="mr-4">
+                            <input type="radio" value="pending" checked={filterValue === "pending"} onChange={(e) => setFilterValue(e.target.value)} className="mr-2" />
+                            PENDING
+                        </label>
+                        <label>
+                            <input type="radio" value="active" checked={filterValue === "active"} onChange={(e) => setFilterValue(e.target.value)} className="mr-2" />
+                            ACTIVE
+                        </label>
+                    </div>
+                )}
+
+        <button onClick={applyFilter} className="w-full bg-blue-600 text-white p-2 rounded mt-2 hover:bg-gray-800">Apply Filter</button>
+      </div>
+
       <div className="overflow-x-auto">
+      {filteredList.length > 0 ? (
         <table className="min-w-full bg-white border-collapse shadow-lg">
           <thead className="bg-gray-800 text-white">
             <tr>
@@ -55,7 +106,7 @@ const CustomerList = () => {
             </tr>
           </thead>
           <tbody>
-            {customers.map((customer, index) => (
+            {filteredList.map((customer, index) => (
               <tr
                 key={index}
                 className="text-center odd:bg-gray-100 even:bg-gray-200"
@@ -97,6 +148,9 @@ const CustomerList = () => {
             ))}
           </tbody>
         </table>
+         ) : (
+          <p className="text-center text-gray-500">No beneficiaries found</p>
+        )}
       </div>
     </div>
   );

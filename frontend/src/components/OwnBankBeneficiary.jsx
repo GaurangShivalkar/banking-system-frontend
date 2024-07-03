@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 
 const OwnBankBeneficiary = ({ onClose }) => {
   const [name, setName] = useState("");
@@ -7,6 +8,7 @@ const OwnBankBeneficiary = ({ onClose }) => {
   const [emailId, setEmailId] = useState("");
   const token = localStorage.getItem("token");
   const customerId = localStorage.getItem("customerId");
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +29,10 @@ const OwnBankBeneficiary = ({ onClose }) => {
       console.error('Error adding beneficiary:', error);
       alert('An error occurred while adding beneficiary');
     }
+  };
+  const handleBackButton = () => {
+    setShowSuccess(false);
+    navigate(-1);
   };
 
   return (

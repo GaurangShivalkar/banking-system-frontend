@@ -3,7 +3,6 @@ import axios from "../api/axiosConfig";
 
 const TransactionCard = ({ sourceAccountId }) => {
   const [transactions, setTransactions] = useState([]);
-
   const [filterType, setFilterType] = useState('');
   const [filterValue, setFilterValue] = useState('');
   const [filteredTransactions, setFilteredTransactions] = useState([]);
@@ -22,7 +21,7 @@ const TransactionCard = ({ sourceAccountId }) => {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTransactions(response.data);
-      setFilteredTransactions(response.data); // Initially set filtered transactions to all fetched transactions
+      setFilteredTransactions(response.data);
     } catch (error) {
       console.error("Error fetching transactions:", error);
     }
@@ -34,18 +33,22 @@ const TransactionCard = ({ sourceAccountId }) => {
     if (filterType && filterValue) {
       switch (filterType) {
         case 'beneficiaryName':
-          filtered = filtered.filter(transaction => transaction.beneficiary.name.includes(filterValue));
+          filtered = filtered.filter(transaction => transaction.beneficiary.name.toLowerCase().includes(filterValue.toLowerCase()));
           break;
-        case 'accountNumber':
-          filtered = filtered.filter(transaction => transaction.sourceAccountId === filterValue || transaction.destinationAccountId === filterValue);
+        case 'dateRange':
+          const { startDate, endDate } = filterValue;
+          if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            console.log(start, end);
+            filtered = filtered.filter(transaction => {
+              const tdate = formatTimestamp(transaction.timestamp);
+              const transactionDate = new Date(tdate);
+              console.log(transactionDate);
+              return transactionDate >= start && transactionDate <= end;
+            });
+          }
           break;
-        // case 'dateRange':
-        //   const { startDate, endDate } = filterValue;
-        //   filtered = filtered.filter(transaction => {
-        //     const transactionDate = new formatTimestamp(transaction.timestamp);
-        //     return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
-        //   });
-        //   break;
         case 'transactionType':
           filtered = filtered.filter(transaction => transaction.transactionType.includes(filterValue));
           break;
@@ -66,10 +69,9 @@ const TransactionCard = ({ sourceAccountId }) => {
         headers: {
           Authorization: `Bearer ${token}`
         },
-        responseType: 'blob' // Ensure the response is treated as a binary blob
+        responseType: 'blob'
       });
 
-      // Create a link element to download the PDF
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
@@ -77,7 +79,6 @@ const TransactionCard = ({ sourceAccountId }) => {
       document.body.appendChild(link);
       link.click();
 
-      // Clean up
       link.remove();
       window.URL.revokeObjectURL(url);
     } catch (error) {
@@ -88,8 +89,8 @@ const TransactionCard = ({ sourceAccountId }) => {
   const formatTimestamp = (timestamp) => {
     const [year, month, day, hour, minute, second] = timestamp;
     const jsDate = new Date(year, month - 1, day, hour, minute, second);
-    const formattedDate = jsDate.toLocaleDateString();
-    return formattedDate;
+    //return jsDate.toLocaleDateString('en-GB');
+    return jsDate
   };
 
   return (
@@ -113,12 +114,12 @@ const TransactionCard = ({ sourceAccountId }) => {
         {filterType === 'accountNumber' && (
           <input type="text" placeholder="Account Number" value={filterValue} onChange={(e) => setFilterValue(e.target.value)} className="p-2 border rounded mb-2" />
         )}
-        {/*   {filterType === 'dateRange' && (
+        {filterType === 'dateRange' && (
           <>
             <input type="date" placeholder="Start Date" value={filterValue.startDate || ''} onChange={(e) => setFilterValue({ ...filterValue, startDate: e.target.value })} className="p-2 border rounded mb-2" />
             <input type="date" placeholder="End Date" value={filterValue.endDate || ''} onChange={(e) => setFilterValue({ ...filterValue, endDate: e.target.value })} className="p-2 border rounded mb-2" />
           </>
-        )} */}
+        )}
         {filterType === 'transactionType' && (
           <input type="text" placeholder="Transaction Type" value={filterValue} onChange={(e) => setFilterValue(e.target.value)} className="p-2 border rounded mb-2" />
         )}
@@ -155,7 +156,7 @@ const TransactionCard = ({ sourceAccountId }) => {
                   <td className="py-2 px-4 border">{transaction.description}</td>
                   <td className="py-2 px-4 border">{transaction.destinationAccountId}</td>
                   <td className="py-2 px-4 border">{transaction.sourceAccountId}</td>
-                  <td className="py-2 px-4 border">{formatTimestamp(transaction.timestamp)}</td>
+                  <td className="py-2 px-4 border">{formatTimestamp(transaction.timestamp).toLocaleDateString('en-GB')}</td>
                   <td className="py-2 px-4 border">{transaction.customer.customerName}</td>
                   <td className="py-2 px-4 border">{transaction.beneficiary.name}</td>
                   <td className="py-2 px-4 border">{transaction.transactionStatus}</td>

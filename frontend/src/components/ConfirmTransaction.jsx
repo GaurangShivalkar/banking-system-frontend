@@ -49,6 +49,10 @@ const ConfirmTransaction = () => {
     navigate('/payment');
   };
 
+  const handleBackButton = () => {
+    setShowSuccess(false);
+    navigate(-1);
+  };
   if (!transactionData) {
     return <div>Loading...</div>;
   }
@@ -57,6 +61,12 @@ const ConfirmTransaction = () => {
     <div>
       <NavbarComponent />
       <div className='p-4 sm:ml-64'>
+      <button
+            onClick={handleBackButton}
+            className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4 hover:bg-gray-600 focus:outline-none focus:ring focus:border-blue-300"
+          >
+            Back
+          </button>
         <div className="max-w-md mx-auto bg-white p-8 rounded shadow-md mt-10">
           <h2 className="text-xl font-semibold mb-4">Confirm Transaction Details</h2>
           <p><strong>Amount:</strong> {transactionData.amount}</p>

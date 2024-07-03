@@ -51,6 +51,10 @@ const BranchList = ({ onEdit }) => {
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [filterType, setFilterType] = useState('');
+  const [filterValue, setFilterValue] = useState('');
+  const [filteredList, setFilteredList] = useState([]);
+
   useEffect(() => {
     fetchBranches();
   }, []);
@@ -59,11 +63,28 @@ const BranchList = ({ onEdit }) => {
     try {
       const response = await axios.get('/api/branch/showAllBranches');
       setBranches(response.data);
+      setFilteredList(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching branches data:', error);
       setLoading(false);
     }
+  };
+
+  const applyFilter = () => {
+    let filtered = [...branches];
+
+    if (filterType && filterValue) {
+      switch (filterType) {
+        case 'city':
+          filtered = filtered.filter(branch => branch.branchCity.toString().includes(filterValue));
+          break;
+
+        default:
+          break;
+      }
+    }
+    setFilteredList(filtered);
   };
 
   if (loading) {
@@ -72,32 +93,48 @@ const BranchList = ({ onEdit }) => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border-collapse shadow-lg">
-        <thead className="bg-gray-800 text-white">
-          <tr>
-            <th className="py-2 px-4 border">ID</th>
-            <th className="py-2 px-4 border">Name</th>
-            <th className="py-2 px-4 border">Address</th>
-            <th className="py-2 px-4 border">City</th>
-            <th className="py-2 px-4 border">Zipcode</th>
-            <th className="py-2 px-4 border">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {branches.map((branch, index) => (
-            <tr key={index} className="text-center odd:bg-gray-100 even:bg-gray-200">
-              <td className="py-2 px-4 border">{branch.branchId}</td>
-              <td className="py-2 px-4 border">{branch.branchName}</td>
-              <td className="py-2 px-4 border">{branch.branchAddress}</td>
-              <td className="py-2 px-4 border">{branch.branchCity}</td>
-              <td className="py-2 px-4 border">{branch.branchZipCode}</td>
-              <td className="py-2 px-4 border">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => onEdit(branch)}>Edit</button>
-              </td>
+      <div className="mb-4">
+        <select value={filterType} onChange={(e) => { setFilterType(e.target.value); setFilterValue(''); }} className="p-2 border rounded mb-2">
+          <option value="">Select Filter</option>
+          <option value="city">By City</option>
+
+        </select>
+        {filterType === 'city' && (
+          <input type="text" placeholder="CITY" value={filterValue} onChange={(e) => setFilterValue(e.target.value)} className="p-2 border rounded mb-2" />
+        )}
+
+        <button onClick={applyFilter} className="w-full bg-blue-600 text-white p-2 rounded mt-2 hover:bg-gray-800">Apply Filter</button>
+      </div>
+      {filteredList.length > 0 ? (
+        <table className="min-w-full bg-white border-collapse shadow-lg">
+          <thead className="bg-gray-800 text-white">
+            <tr>
+              <th className="py-2 px-4 border">ID</th>
+              <th className="py-2 px-4 border">Name</th>
+              <th className="py-2 px-4 border">Address</th>
+              <th className="py-2 px-4 border">City</th>
+              <th className="py-2 px-4 border">Zipcode</th>
+              <th className="py-2 px-4 border">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredList.map((branch, index) => (
+              <tr key={index} className="text-center odd:bg-gray-100 even:bg-gray-200">
+                <td className="py-2 px-4 border">{branch.branchId}</td>
+                <td className="py-2 px-4 border">{branch.branchName}</td>
+                <td className="py-2 px-4 border">{branch.branchAddress}</td>
+                <td className="py-2 px-4 border">{branch.branchCity}</td>
+                <td className="py-2 px-4 border">{branch.branchZipCode}</td>
+                <td className="py-2 px-4 border">
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => onEdit(branch)}>Edit</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="text-center text-gray-500">No Branches found</p>
+      )}
     </div>
   );
 };

@@ -24,10 +24,10 @@ const BeneficiaryType = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
 
   const handleButtonClick = (Component) => {
-    setSelectedComponent(() => <Component onClose={handleBackButtonClick} />);
+    setSelectedComponent(() => <Component onClose={handleBackButtonClick2} />);
   };
 
-  const handleBackButtonClick = () => {
+  const handleBackButtonClick2 = () => {
     setSelectedComponent(null);
   };
 
