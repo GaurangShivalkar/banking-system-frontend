@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../api/axiosConfig';
 import DepositPage from './Deposit';
 
-const PaymentAlt = () => {
+const SelfTransfer = () => {
   const [accountList, setAccountList] = useState([]);
   const [beneficiaryList, setBeneficiaryList] = useState([]);
   
@@ -43,9 +43,8 @@ const PaymentAlt = () => {
             customerId: customerId
           }
         });
-
-
-        setBeneficiaryList(responseBeneficiary.data);
+        const internalBeneficiaries = responseBeneficiary.data.filter(beneficiary => beneficiary.beneficiaryType === 'INTERNAL');
+        setBeneficiaryList(internalBeneficiaries);
       } catch (error) {
         console.error('Error fetching beneficiary details:', error);
       }
@@ -104,7 +103,7 @@ const PaymentAlt = () => {
     <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-6 mt-10">
 
       <form onSubmit={handleSubmit}>
-        <h1 className="text-2xl font-bold mb-4">Funds Transfer</h1>
+        <h1 className="text-2xl font-bold mb-4">Internal Bank Transfer</h1>
 
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="source-account">
@@ -161,9 +160,9 @@ const PaymentAlt = () => {
             className="w-full px-3 py-2 border rounded"
           >
             <option value="" disabled>Select a payment type</option>
-            <option value="IMPS">IMPS Payment</option>
-            <option value="NEFT">NEFT Payment</option>
-            <option value="RTGS">RTGS Payment</option>
+            <option value="SELF">SELF Payment</option>
+            <option value="OTHER">OTHER Payment</option>
+            {/* <option value="SCHEDULED">SCHEDULED Payment</option> */}
           </select>
         </div>
 
@@ -190,4 +189,4 @@ const PaymentAlt = () => {
   );
 };
 
-export default PaymentAlt;
+export default SelfTransfer;

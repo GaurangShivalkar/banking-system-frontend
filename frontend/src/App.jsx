@@ -24,6 +24,7 @@ import AdminTransactions from './pages/admin/AdminTransactions';
 import AdminBeneficiaries from './pages/admin/AdminBeneficiaries';
 import AdminBranches from './pages/admin/AdminBranches';
 import AdminCustomers from './pages/admin/AdminCustomers';
+import AdminUsers from './pages/admin/AdminUser';
 import Unauthorize from './pages/Unauthorize';
 
 export default function App() {
@@ -61,6 +62,7 @@ export default function App() {
           <Route path="/adminBeneficiaries" element={<AdminBeneficiaries/>}/>
           <Route path="/adminBranches" element={<AdminBranches/>}/>
           <Route path="/adminCustomers" element={<AdminCustomers/>}/>
+          <Route path="/adminUsers" element={<AdminUsers/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

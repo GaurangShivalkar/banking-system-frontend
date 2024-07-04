@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../api/axiosConfig';
+import { Link } from 'react-router-dom';
+
 
 const AccountData = ({ sourceAccountId }) => {
     const [accountData, setAccountData] = useState({});
@@ -44,9 +46,10 @@ const AccountData = ({ sourceAccountId }) => {
 
     return (
         <div className="grid grid-cols-2 gap-4">
-            <Card title="Total Balance" amount={accountData.balance} />
-            <Card title="Total Credits" amount={credits} />
-            <Card title="Total Debits" amount={debits} color="red" />
+          <Link to="/accounts"> <Card title="Total Balance" amount={accountData.balance} /></Link>
+          <Link to="/transactions"> <Card title="Total Credits" amount={credits} /></Link>
+         
+          <Link to="/transactions"><Card title="Total Debits" amount={debits} color="red" />  </Link>
         </div>
     );
 };

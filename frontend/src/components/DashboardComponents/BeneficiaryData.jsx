@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import axios from '../../api/axiosConfig';
-
+import { Link } from 'react-router-dom';
 
 const BeneficiaryData = ({ beneficiaries }) => {
     const [beneficiaryList, setBeneficiaryList] = useState([]);
@@ -30,7 +30,7 @@ const BeneficiaryData = ({ beneficiaries }) => {
 
        
   return (
-    <div className="bg-gray-800 p-4 rounded-lg shadow-lg">
+    <Link to="/beneficiary"><div className="bg-gray-800 p-4 rounded-lg shadow-lg">
       <h3 className="text-lg text-white">Beneficiaries</h3>
       <ul>
         {beneficiaryList.map((beneficiary, index) => (
@@ -41,7 +41,7 @@ const BeneficiaryData = ({ beneficiaries }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </div></Link>
   );
 };
 

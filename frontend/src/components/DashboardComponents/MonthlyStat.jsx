@@ -2,7 +2,9 @@ import React,{useEffect, useState} from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend, PointElement } from 'chart.js';
 import axios from '../../api/axiosConfig';
-
+import { Link
+  
+ } from 'react-router-dom';
 // Register the necessary elements with Chart.js
 ChartJS.register(CategoryScale,  LinearScale, LineElement, Title, Tooltip, Legend, PointElement);
 
@@ -43,12 +45,13 @@ const data = {
 const options = {plugins: { legend: {labels: {color: 'white', }, }, }, scales: {x: {ticks: {color: 'white', }, }, y: {ticks: {color: 'white', }, }, }, };
 
   return (
+    <Link to="/payment">
     <div className="bg-gray-800 p-4 rounded-lg shadow-lg mt-4">
       <h3 className="text-lg text-white">Monthly Statistics</h3>
       <div className="mt-2">
         <Line data={data} options={options} />
       </div>
-    </div>
+    </div></Link>
   );
 };
 

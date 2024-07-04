@@ -48,6 +48,11 @@ function AdminNavbarComponent() {
       icon: <AiOutlineUser className="mr-3" />,
     },
     {
+      label: 'Users',
+      to: '/adminUsers',
+      icon: <AiOutlineUser className="mr-3" />,
+    },
+    {
       label: 'Logout',
       onClick: handleLogout,
       icon: <AiOutlineLogout className="mr-3" />,

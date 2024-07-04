@@ -70,10 +70,10 @@ function NavbarComponent() {
 
       <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-          <a href="https://github.com/GaurangShivalkar" className="flex items-center ps-2.5 mb-5">
+          <Link to="/" className="flex items-center ps-2.5 mb-5">
             <img src="/vite.svg" className="h-6 me-3 sm:h-7" alt="vite Logo" />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">ENQ BANK</span>
-          </a>
+          </Link>
 
           <ul className="space-y-2 font-medium">
             {menuItems.map((item, index) => (

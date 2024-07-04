@@ -10,6 +10,7 @@ function UserRegister() {
   const [customerId, setCustomerId] = useState("");
   const navigate = useNavigate();
 
+
   const fetchCustomerId = async () => {
     try {
       const dbdata = await axios.get("/api/customers/showCustomer/" + customerId);
@@ -28,9 +29,9 @@ function UserRegister() {
 
     if (customerData && customerEmail === email) {
       // Proceed with registration if customer exists
-      localStorage.setItem("registrationData", JSON.stringify({ username, email, password, role, customerId }));
+      localStorage.setItem("registrationData", JSON.stringify({ username, email, password, role:"USER", customerId }));
       try {
-        const response = await axios.post("/auth/sendMail/" + email);
+        const response = await axios.get(`/auth/generateOtp?key=${1234}&email=${email}` );
         console.log(response);
         navigate("/otp"); // Redirect to OTP page after successful registration
       } catch (error) {

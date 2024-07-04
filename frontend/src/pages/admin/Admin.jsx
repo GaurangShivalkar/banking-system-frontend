@@ -111,13 +111,25 @@ const Admin = () => {
 
 
   const pieChartData = {
-    labels: ["RTGS", "NEFT", "IMPS"],
+    labels: ["RTGS", "NEFT", "IMPS", "SELF", "OTHER"],
     datasets: [
       {
         label: "User Types",
-        data: [pieData.RTGS, pieData.NEFT, pieData.IMPS],
-        backgroundColor: ["rgba(45, 55, 72, 1)", "rgba(76, 84, 100, 1)", "rgba(109, 116, 129, 1)"],
-        borderColor: ["rgba(45, 55, 72, 2)", "rgba(76, 84, 100, 2)", "rgba(109, 116, 129, 2)"],
+        data: [pieData.RTGS, pieData.NEFT, pieData.IMPS, pieData.SELF, pieData.OTHER],
+        backgroundColor: [
+          "rgba(13, 21, 38, 1)", 
+          "rgba(38, 64, 115, 1)", 
+          "rgba(64, 107, 191, 1)", 
+          "rgba(140, 166, 217, 1)", 
+          "rgba(217, 225, 242, 1)"
+        ],
+        borderColor: [
+          "rgba(13, 21, 38, 2)", 
+          "rgba(38, 64, 115, 2)", 
+          "rgba(64, 107, 191, 2)", 
+          "rgba(140, 166, 217, 2)", 
+          "rgba(217, 225, 242, 2)"
+        ],
         borderWidth: 1,
       },
     ],
