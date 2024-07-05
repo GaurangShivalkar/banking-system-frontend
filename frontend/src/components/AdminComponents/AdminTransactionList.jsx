@@ -3,7 +3,6 @@ import axios from "../../api/axiosConfig";
 
 const AdminTransactionList = () => {
     const [transactions, setTransactions] = useState([]);
-   
     const [filterType, setFilterType] = useState('');
     const [filterValue, setFilterValue] = useState('');
     const [filteredList, setFilteredList] = useState([]);
@@ -26,7 +25,6 @@ const AdminTransactionList = () => {
 
     const applyFilter = () => {
         let filtered = [...transactions];
-
         if (filterType && filterValue) {
             switch (filterType) {
                 case 'source':
@@ -58,13 +56,11 @@ const AdminTransactionList = () => {
         }
         setFilteredList(filtered);
     };
-
-    const toggleStatus = async (transactionId, currentStatus) => {
-        const newStatus = currentStatus === "pending" ? "success" : "pending";
+    const updateStatus = async (transactionId, currentStatus) => {
         try {
             await axios.put(`/api/transactions/updateTransactionStatus/${transactionId}`, {
-                transactionStatus: newStatus,
-            }, { headers: { Authorization: `Bearer ${token}` } });
+                transactionStatus: currentStatus,
+            },{ headers: { Authorization: `Bearer ${token}` } });
             fetchTransactions();
         } catch (error) {
             console.error("Error updating account status:", error);
@@ -86,8 +82,6 @@ const AdminTransactionList = () => {
                     <option value="method">By method</option>
                     <option value="dateRange">Date Range</option>
                     <option value="type">By type</option>
-                    
-
                 </select>
                 {filterType === 'source' && (
                     <input type="text" placeholder="ACCOUNT NUMBER" value={filterValue} onChange={(e) => setFilterValue(e.target.value)} className="p-2 border rounded mb-2" />
@@ -128,8 +122,6 @@ const AdminTransactionList = () => {
         )}
                 <button onClick={applyFilter} className="w-full bg-blue-600 text-white p-2 rounded mt-2 hover:bg-gray-800">Apply Filter</button>
             </div>
-
-
             <div className="overflow-x-auto">
                 {filteredList.length > 0 ? (
                     <table className="min-w-full bg-white border-collapse shadow-lg">
@@ -146,6 +138,7 @@ const AdminTransactionList = () => {
                                 <th className="py-2 px-4 border">Beneficiary Name</th>
                                 <th className="py-2 px-4 border">Method</th>
                                 <th className="py-2 px-4 border">Type</th>
+                                <th className="py-2 px-4 border">Status</th>
                                 <th className="py-2 px-4 border">Verify Status</th>
                             </tr>
                         </thead>
@@ -163,29 +156,14 @@ const AdminTransactionList = () => {
                                     <td className="py-2 px-4 border">{transaction.beneficiary.name}</td>
                                      <td className="py-2 px-4 border">{transaction.transactionType}</td> 
                                     <td className="py-2 px-4 border">{transaction.transactionMethod}</td>
+                                    <td className="py-2 px-4 border">{transaction.transactionStatus}</td>
                                     <td className="py-2 px-4 border">
-                                        <label className="flex items-center cursor-pointer">
-                                            <div className="relative">
-                                                <input
-                                                    type="checkbox"
-                                                    className="sr-only"
-                                                    checked={transaction.transactionStatus === "success"}
-                                                    onChange={() =>
-                                                        toggleStatus(transaction.transactionId, transaction.transactionStatus)
-                                                    }
-                                                />
-                                                <div className="block bg-gray-600 w-10 h-6 rounded-full"></div>
-                                                <div
-                                                    className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition ${transaction.transactionStatus === "success"
-                                                            ? "transform translate-x-full bg-green-500"
-                                                            : ""
-                                                        }`}
-                                                ></div>
-                                            </div>
-                                            <span className="ml-3 text-gray-700">
-                                                {transaction.transactionStatus === "success" ? "Verified" : "Pending"}
-                                            </span>
-                                        </label>
+                                    <select value={transaction.transactionStatus} onChange={(e) => updateStatus(transaction.transactionId, e.target.value)} className="p-2 border rounded">
+                                            <option value="processed">Processed</option>
+                                            <option value="completed">completed</option>
+                                            <option value="failed">Failed</option>
+                                            <option value="refunded">Refunded</option>
+                                        </select>
                                     </td>
                                 </tr>
                             ))}
@@ -198,5 +176,4 @@ const AdminTransactionList = () => {
         </div>
     );
 };
-
 export default AdminTransactionList;

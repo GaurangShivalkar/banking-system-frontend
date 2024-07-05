@@ -8,18 +8,14 @@ function CreateAccountPage() {
   const [branchId, setBranchId] = useState("");
   const [branches, setBranches] = useState([]);
   const [customerId, setCustomerId] = useState("");
-
   const navigate = useNavigate();
 
-  useEffect(() => { fetchBranches(); }, []);
-  useEffect(() => { fetchCustomerId(); }, []);
-
+  useEffect(() => { fetchBranches(); fetchCustomerId(); }, []);
 
   const fetchBranches = async () => {
     try {
       const response = await axios.get("api/branch/showAllBranches");
       setBranches(response.data);
-      
     } catch (error) {
       console.error("Error fetching branches:", error);
     }
@@ -37,15 +33,10 @@ function CreateAccountPage() {
  
   const handleAccountCreation = async (e) => {e.preventDefault();
     const accountData = {
-      //customerId:
       accountType: accountType,
       balance: balance,
-      customer: {
-        customerId:customerId
-      },
-      branch: {
-        branchId:branchId
-      }
+      customer: {customerId:customerId},
+      branch: {branchId:branchId}
     };
     console.log("Sending account data:", accountData);
     await axios.post("/api/accounts/createAccount", accountData);
@@ -53,8 +44,7 @@ function CreateAccountPage() {
     if(listAcc.data.length === 1){
       navigate("/registration");
     } 
-    else{
-    
+    else{  
       navigate("/accounts")}
   };
 
@@ -66,13 +56,7 @@ function CreateAccountPage() {
           <label htmlFor="accountType" className="block text-xl font-bold text-cyan-600 mb-2">
             Account Type
           </label>
-          <select
-            id="accountType"
-            value={accountType}
-            onChange={(e) => setAccountType(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
-            required
-          >
+          <select id="accountType" value={accountType} onChange={(e) => setAccountType(e.target.value)} className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300" required>
             <option value="">Select Account Type</option>
             <option value="Savings">Savings</option>
             <option value="Current">Current</option>
@@ -82,15 +66,7 @@ function CreateAccountPage() {
           <label htmlFor="balance" className="block text-xl font-bold text-cyan-600 mb-2">
             Balance
           </label>
-          <input
-            type="number"
-            id="balance"
-            value={balance}
-            onChange={(e) => setBalance(e.target.value)}
-            placeholder="Enter initial balance"
-            className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
-            required
-          />
+          <input type="number" id="balance" value={balance} onChange={(e) => setBalance(e.target.value)} placeholder="Enter initial balance" className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300" required/>
         </div>
         <div className="mb-4">
           <label htmlFor="branchId" className="block text-xl font-bold text-cyan-600 mb-2">
@@ -99,14 +75,7 @@ function CreateAccountPage() {
           <label htmlFor="branchId" className="block text-sm font-medium text-gray-700">
             Branch
           </label>
-          <select
-            id="branchId"
-            name="branchId"
-            value={branchId}
-            onChange={(e) => setBranchId(e.target.value)}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            required
-          >
+          <select id="branchId" name="branchId" value={branchId} onChange={(e) => setBranchId(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" required>
             <option value="">Select Branch</option>
             {branches.map((branch) => (
               <option key={branch.branchId} value={branch.branchId}>
@@ -119,22 +88,13 @@ function CreateAccountPage() {
           <label className="block text-xl font-bold text-cyan-600 mb-2">
             Customer ID
           </label>
-          <input
-            type="text"
-            value={customerId} // Assuming customer ID (non-editable)
-            readOnly
-            className="w-full px-3 py-2 border rounded-md text-gray-800 bg-gray-100 focus:outline-none"
-          />
+          <input type="text" value={customerId} readOnly className="w-full px-3 py-2 border rounded-md text-gray-800 bg-gray-100 focus:outline-none"/>
         </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-gray-800 text-white font-bold py-2 rounded-md focus:outline-none focus:ring focus:ring-green-300"
-        >
+        <button type="submit" className="w-full bg-blue-600 hover:bg-gray-800 text-white font-bold py-2 rounded-md focus:outline-none focus:ring focus:ring-green-300">
           Create Account
         </button>
       </form>
     </section>
   );
 }
-
 export default CreateAccountPage;

@@ -30,7 +30,7 @@ function OtpPage() {
 
       // Clear localStorage after successful registration
       localStorage.removeItem("registrationData");
-      toast.success("Otp has been successfully matched", { autoClose: 3000 });
+      alert("Otp has been successfully matched");
       // Redirect to the KYC page or any other page after successful registration
       navigate("/login");
     }

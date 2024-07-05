@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import AdminTransactionList from "../../components/AdminComponents/AdminTransactionList";
 import AdminNavbarComponent from "../../components/AdminComponents/AdminNavbar";
 
-
-
 const AdminTransactions = () => {
   return (
     <div>

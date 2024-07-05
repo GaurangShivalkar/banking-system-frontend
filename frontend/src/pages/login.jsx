@@ -25,9 +25,7 @@ function LoginPage() {
      
       const role = userData.role;
       if(role == "USER") {
-       
         const email = userData.email;
-
         const customerResponse = await axios.get(`/api/users/getCustomerId/${email}`);
         localStorage.setItem("customerId", customerResponse.data);
         navigate("/dashboard");
@@ -35,16 +33,11 @@ function LoginPage() {
       else if(role == "ADMIN") {
         navigate("/admin");
       }
-   
-      
-
-      // Redirect to another page or perform other actions upon successful login
-      // Example: window.location.href = '/dashboard';
     } catch (error) {
-      console.error("Login failed:", error);
-      // Handle login failure (e.g., display error message to user)
+      alert("Login failed:", error);
     }
   };
+  
   return (
     <section className="flex flex-col items-center justify-center h-screen bg-gray-800">
       <form onSubmit={handleLogin} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -60,8 +53,7 @@ function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="example@yourmail.com"
             className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
-            required
-          />
+            required/>
         </div>
         <div className="mb-6">
           <label htmlFor="password" className="block text-xl font-bold text-cyan-600 mb-2">
@@ -74,8 +66,7 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="***********"
             className="w-full px-3 py-2 border rounded-md text-gray-800 focus:outline-none focus:ring focus:ring-cyan-300"
-            required
-          />
+            required/>
         </div>
         <button
           type="submit"
@@ -93,5 +84,4 @@ function LoginPage() {
     </section>
   );
 }
-
 export default LoginPage;

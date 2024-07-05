@@ -15,11 +15,9 @@ function Header() {
   };
 
   return (
-
-
     <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://github.com/GaurangShivalkar" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="/vite.svg" className="h-8" alt="Flowbite Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ENQ BANK</span>
         </a>
@@ -51,7 +49,6 @@ function Header() {
         </div>
       </div>
     </nav>
-
   );
 }
 
@@ -61,7 +58,6 @@ function MainSection() {
     // Navigate to the create account route
     navigate("/kyc");
   };
-
   return (
     <section id="main-section" className="relative py-14">
       <div className="bg-header-mobile bg-custom-mobile-header-size absolute w-full h-full bg-no-repeat lg:hidden"></div>
@@ -151,7 +147,6 @@ function Features() {
     )
 }
 
-
 function Footer() {
   return (
 <footer id="footer" className="bg-white dark:bg-gray-900">
@@ -238,7 +233,6 @@ function Footer() {
       </div>
     </div>
 </footer>
-
   );
 }
 
@@ -247,15 +241,11 @@ function HomePage() {
     <div className="flex flex-col justify-center">
       <Header />
       <div className=" px-40 items-center pb-11 w-full max-md:max-w-full">
-
         <MainSection />
-      
         <Features />
        </div>
-    
       <Footer/>
     </div>
-
   );
 }
 
