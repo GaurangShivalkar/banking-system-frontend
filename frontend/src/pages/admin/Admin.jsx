@@ -3,6 +3,7 @@ import { Bar, Line, Pie } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, ArcElement } from "chart.js";
 import AdminNavbarComponent from "../../components/AdminComponents/AdminNavbar";
 import axios from "../../api/axiosConfig";
+import { Link } from 'react-router-dom';
 
 // Register the necessary elements with Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, ArcElement);
@@ -108,8 +109,6 @@ const Admin = () => {
     ],
   };
 
-
-
   const pieChartData = {
     labels: ["RTGS", "NEFT", "IMPS", "SELF", "OTHER"],
     datasets: [
@@ -121,7 +120,7 @@ const Admin = () => {
           "rgba(38, 64, 115, 1)", 
           "rgba(64, 107, 191, 1)", 
           "rgba(140, 166, 217, 1)", 
-          "rgba(217, 225, 242, 1)"
+          "rgba(207, 215, 232, 1)"
         ],
         borderColor: [
           "rgba(13, 21, 38, 2)", 
@@ -141,40 +140,49 @@ const Admin = () => {
       <div className="p-4 sm:ml-64">
         <h1 className="text-3xl text-black font-bold mb-4">Welcome to the Admin Dashboard</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4">
-          <div className="bg-gray-800 shadow-lg rounded-lg p-4">
+        <Link to="/adminUsers">
+        <div className="bg-gray-800 shadow-lg rounded-lg p-4">
             <h2 className="text-xl font-bold mb-2">Total Users</h2>
             <p>{total[0]}</p>
-          </div>
+          </div></Link>
+          <Link to="/adminTransactions">
           <div className="bg-gray-800 shadow-lg rounded-lg p-4">
             <h2 className="text-xl font-bold mb-2">Total Transactions</h2>
             <p>{total[1]}</p>
-          </div>
+          </div></Link>
+          <Link to="/adminCustomers">
           <div className="bg-gray-800 shadow-lg rounded-lg p-4">
             <h2 className="text-xl font-bold mb-2">Total Revenue</h2>
             <p>{total[2]} ₹</p>
-          </div>
+          </div></Link>
+          <Link to="/adminAccounts">
           <div className="bg-gray-800 shadow-lg rounded-lg p-4">
             <h2 className="text-xl font-bold mb-2">Total Accounts</h2>
             <p>{total[3]}</p>
-          </div>
+          </div></Link>
         </div>
 
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <Link to="/adminTransactions">
           <div className="bg-gray-200 shadow-lg rounded-lg p-4">
             <h2 className="text-xl text-black font-bold mb-2">Transactions Over Months</h2>
             <Bar data={barChartData} options={{ plugins: { legend: { labels: { color: 'black' } } }, scales: { x: { ticks: { color: 'black' } }, y: { ticks: { color: 'black' } } } }} />     
-          </div>
+          </div></Link>
 
+          <Link to="/adminUsers">
           <div className="bg-gray-200 shadow-lg rounded-lg p-4">
             <h2 className="text-xl text-black font-bold mb-2">User Types</h2>
             <Pie data={pieChartData} options={{ plugins: { legend: { labels: { color: 'black' } } } }} />
-          </div>
+          </div></Link>
         </div>
 
+        <Link to="/adminAccounts">
         <div className="bg-gray-200 shadow-lg rounded-lg p-4">
           <h2 className="text-xl text-black font-bold mb-2">Revenue Over Months</h2>
           <Line data={lineChartData} options={{ plugins: { legend: { labels: { color: 'black' } } }, scales: { x: { ticks: { color: 'black' } }, y: { ticks: { color: 'black' } } } }} />
         </div>
+        </Link>
       </div>
     </div>
   );

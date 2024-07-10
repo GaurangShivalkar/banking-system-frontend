@@ -38,6 +38,9 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
     return <Navigate to="/unauthorize" />;
   }
 
+  if (role && !isAdminRoute && role == "ADMIN") {
+    return <Navigate to="/unauthorize" />;
+  }
   if (role === null) {
     // Role not yet fetched
     return null;
