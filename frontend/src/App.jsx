@@ -1,5 +1,7 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 
 import LoginPage from './pages/login';
 import RegistrationPage from './pages/registration';
@@ -28,6 +30,38 @@ import AdminUsers from './pages/admin/AdminUser';
 import Unauthorize from './pages/Unauthorize';
 
 export default function App() {
+  //setIsLoggedIn={setIsLoggedIn} startSessionTimer={startSessionTimer}
+  
+      // { setIsLoggedIn, startSessionTimer }
+      // setIsLoggedIn(true);
+      // startSessionTimer();
+
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [logoutTimer, setLogoutTimer] = useState(null);
+
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     startSessionTimer();
+  //   }
+
+  // }, [isLoggedIn]);
+
+  // const startSessionTimer = () => {
+  //   const timerId = setTimeout(() => {
+  //     alert('Session expired. You will be logged out.');
+  //     handleLogout();
+  //   }, 0.5* 60 * 1000); // 3 minutes in milliseconds
+
+  //   setLogoutTimer(timerId);
+  // };
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('customerId');
+  //   window.location.reload();
+  // };
+
+
   return (
     <BrowserRouter>
       <Routes>
@@ -41,7 +75,7 @@ export default function App() {
         <Route path="/createAccount" element={<CreateAccountPage />}/>
         <Route path="/registration" element={<RegistrationPage />}/>
         <Route path="/otp" element={<OtpPage />}/>
-        <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/login" element={<LoginPage/>} />
         <Route path="/" element={<HomePage />}/>
         <Route path="/unauthorize" element={<Unauthorize />} />
         

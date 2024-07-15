@@ -34,11 +34,11 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
     return <Navigate to="/login" />;
   }
 
-  if (role && isAdminRoute && role !== "ADMIN") {
+  if (role && isAdminRoute && role !== "ROLE_ADMIN") {
     return <Navigate to="/unauthorize" />;
   }
 
-  if (role && !isAdminRoute && role == "ADMIN") {
+  if (role && !isAdminRoute && role == "ROLE_ADMIN") {
     return <Navigate to="/unauthorize" />;
   }
   if (role === null) {

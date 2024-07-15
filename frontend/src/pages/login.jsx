@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../api/axiosConfig";
 
 function LoginPage() {
+ 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+
       const response = await axios.post("/auth/login", { email, password });
       const token = response.data; // Assuming your backend returns just the token
 
@@ -24,13 +26,13 @@ function LoginPage() {
       const userData = userResponse.data;
      
       const role = userData.role;
-      if(role == "USER") {
+      if(role == "ROLE_USER") {
         const email = userData.email;
         const customerResponse = await axios.get(`/api/users/getCustomerId/${email}`);
         localStorage.setItem("customerId", customerResponse.data);
         navigate("/dashboard");
       }
-      else if(role == "ADMIN") {
+      else if(role == "ROLE_ADMIN") {
         navigate("/admin");
       }
     } catch (error) {
