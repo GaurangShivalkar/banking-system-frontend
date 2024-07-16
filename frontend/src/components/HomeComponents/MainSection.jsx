@@ -39,7 +39,7 @@ function MainSection() {
           <img src={image3} alt="Banking 3" className="w-full h-full object-cover" />
         </div>
       </Slider>
-      <div className="container absolute bottom-10 left-10 z-10 p-4 bg-white bg-opacity-75 rounded-lg text-center max-w-sm">
+      {/* <div className="container absolute bottom-10 left-10 z-10 p-4 bg-white bg-opacity-75 rounded-lg text-center max-w-sm">
         <h1 className="text-2xl lg:text-3xl text-primary-dark-blue pb-2">
           Digital Banking
         </h1>
@@ -54,7 +54,7 @@ function MainSection() {
         >
           Create Account
         </button>
-      </div>
+      </div> */}
     </section>
   );
 }

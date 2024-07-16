@@ -29,7 +29,7 @@ function Features() {
     ];
     
       return (
-        <section id="features" className="py-14 bg-neutral-light-grayish-blue lg:py-24">
+        <section id="features" className="px-14 bg-neutral-light-grayish-blue lg:py-10">
           <div className="container text-center lg:text-left">
             <div className="grid lg:grid-cols-2 mb-12 lg:mb-16">
               <div className="col-span-1">

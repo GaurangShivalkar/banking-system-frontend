@@ -32,7 +32,7 @@ const Admin = () => {
       try {
           const response = await axios.get('/api/admin/transactionsMonthWise'); // Assuming your backend is running on the same host
           setBarData(response.data); 
-          console.log(response.data);
+    
         } catch (error) {
           console.error('Error fetching data:', error);
       }
@@ -42,7 +42,7 @@ const Admin = () => {
       try {
           const response = await axios.get('/api/admin/transactionTypeCount'); // Assuming your backend is running on the same host
           setPieData(response.data); 
-          console.log(response.data);
+         
 
         } catch (error) {
           console.error('Error fetching data:', error);

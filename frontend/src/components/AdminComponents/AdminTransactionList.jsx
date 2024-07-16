@@ -158,12 +158,24 @@ const AdminTransactionList = () => {
                                     <td className="py-2 px-4 border">{transaction.transactionMethod}</td>
                                     <td className="py-2 px-4 border">{transaction.transactionStatus}</td>
                                     <td className="py-2 px-4 border">
+                                        
                                     <select value={transaction.transactionStatus} onChange={(e) => updateStatus(transaction.transactionId, e.target.value)} className="p-2 border rounded">
-                                            <option value="processed">Processed</option>
+                                          
                                             <option value="completed">completed</option>
                                             <option value="failed">Failed</option>
                                             <option value="refunded">Refunded</option>
                                         </select>
+
+                                        {
+                                            transaction.transactionStatus != 'completed' && (
+                                                <select value={transaction.transactionStatus} onChange={(e) => updateStatus(transaction.transactionId, e.target.value)} className="p-2 border rounded">
+
+                                                    <option value="completed">completed</option>
+                                                    <option value="failed">Failed</option>
+                                                    <option value="refunded">Refunded</option>
+                                                </select>
+                                            )
+                                        }
                                     </td>
                                 </tr>
                             ))}

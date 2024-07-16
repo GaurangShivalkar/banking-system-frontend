@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MainSection from "../components/HomeComponents/MainSection";
 import Features from "../components/HomeComponents/Features";
 import Footer from "../components/HomeComponents/Footer";
+import SecondarySection from "../components/HomeComponents/SecondarySection";
 
 function Header() {
   const navigate = useNavigate();
@@ -58,7 +59,8 @@ function HomePage() {
     <div className="flex flex-col">
       <Header />
       <div className="pt-10 items-center pb-11">
-        <MainSection />
+        {/* <MainSection /> */}
+        <SecondarySection/>
         <Features />
       </div>
       <Footer />
