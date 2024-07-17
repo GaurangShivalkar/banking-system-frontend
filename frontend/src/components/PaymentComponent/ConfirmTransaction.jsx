@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../api/axiosConfig';
-import NavbarComponent from './NavbarComponent';
+import axios from '../../api/axiosConfig';
+import NavbarComponent from '../NavbarComponent';
 import SuccessComponent from './Sucess';
 
 const ConfirmTransaction = () => {

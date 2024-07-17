@@ -6,6 +6,7 @@ const AdminTransactionList = () => {
     const [filterType, setFilterType] = useState('');
     const [filterValue, setFilterValue] = useState('');
     const [filteredList, setFilteredList] = useState([]);
+    const [disabledSelectBoxes, setDisabledSelectBoxes] = useState({});
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -19,7 +20,6 @@ const AdminTransactionList = () => {
             setFilteredList(response.data);
         } catch (error) {
             console.error("Error fetching accounts data:", error);
-            setLoading(false);
         }
     };
 
@@ -36,32 +36,32 @@ const AdminTransactionList = () => {
                 case 'type':
                     filtered = filtered.filter(transaction => transaction.transactionType.includes(filterValue));
                     break;
-                    case 'dateRange':
-                        const { startDate, endDate } = filterValue;
-                        if (startDate && endDate) {
-                          const start = new Date(startDate);
-                          const end = new Date(endDate);
-                          console.log(start, end);
-                          filtered = filtered.filter(transaction => {
+                case 'dateRange':
+                    const { startDate, endDate } = filterValue;
+                    if (startDate && endDate) {
+                        const start = new Date(startDate);
+                        const end = new Date(endDate);
+                        filtered = filtered.filter(transaction => {
                             const tdate = formatTimestamp(transaction.timestamp);
                             const transactionDate = new Date(tdate);
-                            console.log(transactionDate);
                             return transactionDate >= start && transactionDate <= end;
-                          });
-                        }
-                        break;
+                        });
+                    }
+                    break;
                 default:
                     break;
             }
         }
         setFilteredList(filtered);
     };
-    const updateStatus = async (transactionId, currentStatus) => {
+
+    const updateStatus = async (transactionId, newStatus) => {
         try {
             await axios.put(`/api/transactions/updateTransactionStatus/${transactionId}`, {
-                transactionStatus: currentStatus,
-            },{ headers: { Authorization: `Bearer ${token}` } });
+                transactionStatus: newStatus,
+            }, { headers: { Authorization: `Bearer ${token}` } });
             fetchTransactions();
+            setDisabledSelectBoxes(prevState => ({ ...prevState, [transactionId]: true }));
         } catch (error) {
             console.error("Error updating account status:", error);
         }
@@ -70,7 +70,7 @@ const AdminTransactionList = () => {
     const formatTimestamp = (timestamp) => {
         const [year, month, day, hour, minute, second] = timestamp;
         const jsDate = new Date(year, month - 1, day, hour, minute, second);
-        return jsDate
+        return jsDate;
     };
 
     return (
@@ -112,14 +112,14 @@ const AdminTransactionList = () => {
                             <input type="radio" value="NEFT" checked={filterValue === "NEFT"} onChange={(e) => setFilterValue(e.target.value)} className="mr-2" />
                             NEFT
                         </label>
-                    </div>   
+                    </div>
                 )}
-                 {filterType === 'dateRange' && (
-          <>
-            <input type="date" placeholder="Start Date" value={filterValue.startDate || ''} onChange={(e) => setFilterValue({ ...filterValue, startDate: e.target.value })} className="p-2 border rounded mb-2" />
-            <input type="date" placeholder="End Date" value={filterValue.endDate || ''} onChange={(e) => setFilterValue({ ...filterValue, endDate: e.target.value })} className="p-2 border rounded mb-2" />
-          </>
-        )}
+                {filterType === 'dateRange' && (
+                    <>
+                        <input type="date" placeholder="Start Date" value={filterValue.startDate || ''} onChange={(e) => setFilterValue({ ...filterValue, startDate: e.target.value })} className="p-2 border rounded mb-2" />
+                        <input type="date" placeholder="End Date" value={filterValue.endDate || ''} onChange={(e) => setFilterValue({ ...filterValue, endDate: e.target.value })} className="p-2 border rounded mb-2" />
+                    </>
+                )}
                 <button onClick={applyFilter} className="w-full bg-blue-600 text-white p-2 rounded mt-2 hover:bg-gray-800">Apply Filter</button>
             </div>
             <div className="overflow-x-auto">
@@ -127,7 +127,6 @@ const AdminTransactionList = () => {
                     <table className="min-w-full bg-white border-collapse shadow-lg">
                         <thead className="bg-gray-800 text-white">
                             <tr>
-                                {/* <th className="py-2 px-4 border">ID</th> */}
                                 <th className="py-2 px-4 border">Timestamp</th>
                                 <th className="py-2 px-4 border">Amount</th>
                                 <th className="py-2 px-4 border">Changed Balance</th>
@@ -139,13 +138,11 @@ const AdminTransactionList = () => {
                                 <th className="py-2 px-4 border">Method</th>
                                 <th className="py-2 px-4 border">Type</th>
                                 <th className="py-2 px-4 border">Status</th>
-                                <th className="py-2 px-4 border">Verify Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredList.map((transaction, index) => (
                                 <tr key={index} className="text-center odd:bg-gray-100 even:bg-gray-200">
-                                    {/* <td className="py-2 px-4 border">{transaction.transactionId}</td> */}
                                     <td className="py-2 px-4 border">{formatTimestamp(transaction.timestamp).toLocaleDateString('en-GB')}</td>
                                     <td className="py-2 px-4 border">{transaction.amount}</td>
                                     <td className="py-2 px-4 border">{transaction.changedBalance}</td>
@@ -154,28 +151,20 @@ const AdminTransactionList = () => {
                                     <td className="py-2 px-4 border">{transaction.sourceAccountId}</td>
                                     <td className="py-2 px-4 border">{transaction.customer.customerName}</td>
                                     <td className="py-2 px-4 border">{transaction.beneficiary.name}</td>
-                                     <td className="py-2 px-4 border">{transaction.transactionType}</td> 
+                                    <td className="py-2 px-4 border">{transaction.transactionType}</td>
                                     <td className="py-2 px-4 border">{transaction.transactionMethod}</td>
-                                    <td className="py-2 px-4 border">{transaction.transactionStatus}</td>
+                                  
                                     <td className="py-2 px-4 border">
-                                        
-                                    <select value={transaction.transactionStatus} onChange={(e) => updateStatus(transaction.transactionId, e.target.value)} className="p-2 border rounded">
-                                          
-                                            <option value="completed">completed</option>
-                                            <option value="failed">Failed</option>
-                                            <option value="refunded">Refunded</option>
-                                        </select>
-
-                                        {
-                                            transaction.transactionStatus != 'completed' && (
-                                                <select value={transaction.transactionStatus} onChange={(e) => updateStatus(transaction.transactionId, e.target.value)} className="p-2 border rounded">
-
-                                                    <option value="completed">completed</option>
-                                                    <option value="failed">Failed</option>
-                                                    <option value="refunded">Refunded</option>
-                                                </select>
-                                            )
-                                        }
+                                        {transaction.transactionStatus === 'processed' && !disabledSelectBoxes[transaction.transactionId] ? (
+                                            <select value={transaction.transactionStatus} onChange={(e) => updateStatus(transaction.transactionId, e.target.value)} className="p-2 border rounded">
+                                                <option value="">Processed</option>
+                                                <option value="completed">Completed</option>
+                                                <option value="failed">Failed</option>
+                                                <option value="refunded">Refunded</option>
+                                            </select>
+                                        ) : (
+                                            <span>{transaction.transactionStatus}</span>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
@@ -188,4 +177,5 @@ const AdminTransactionList = () => {
         </div>
     );
 };
+
 export default AdminTransactionList;

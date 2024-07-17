@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../api/axiosConfig';
+import axios from '../../api/axiosConfig';
 import DepositPage from './Deposit';
 
 const OutTransfer = () => {
@@ -100,13 +100,13 @@ const OutTransfer = () => {
   return (
     <>
 
-    <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-6 mt-10">
+    <div className="max-w-md mx-auto bg-gray-700  shadow-md rounded-md p-6 mt-10">
 
       <form onSubmit={handleSubmit}>
-        <h1 className="text-2xl font-bold mb-4">External Bank Transfer</h1>
+        <h1 className="text-2xl text-white font-bold mb-4">External Bank Transfer</h1>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="source-account">
+          <label className="block text-white  text-sm font-bold mb-2" htmlFor="source-account">
             Source Account No
           </label>
           <select
@@ -121,7 +121,7 @@ const OutTransfer = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="beneficiary-id">
+          <label className="block text-white text-sm font-bold mb-2" htmlFor="beneficiary-id">
             Beneficiary ID
           </label>
           <select
@@ -136,7 +136,7 @@ const OutTransfer = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+          <label className="block text-white text-sm font-bold mb-2" htmlFor="amount">
             Description
           </label>
           <input
@@ -150,7 +150,7 @@ const OutTransfer = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="transactionType">
+          <label className="block text-white text-sm font-bold mb-2" htmlFor="transactionType">
             Type of Payment
           </label>
           <select
@@ -167,7 +167,7 @@ const OutTransfer = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+          <label className="block text-white text-sm font-bold mb-2" htmlFor="amount">
             Amount
           </label>
           <input

@@ -1,6 +1,6 @@
 // EmailChangeModal.js
 import React, { useState } from 'react';
-import axios from '../api/axiosConfig';
+import axios from '../../api/axiosConfig';
 
 const EmailChange = ({ email, userId, onClose }) => {
   const [newEmail, setNewEmail] = useState('');

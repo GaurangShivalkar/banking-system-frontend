@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from '../api/axiosConfig';
+import axios from '../../api/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
 const OwnBankBeneficiary = ({ onClose }) => {
@@ -36,9 +36,9 @@ const OwnBankBeneficiary = ({ onClose }) => {
   };
 
   return (
-    <div className="w-full bg-white p-8 shadow-md rounded">
+    <div className="w-full bg-gray-700 p-8 shadow-md rounded">
     
-        <h2 className="text-2xl font-semibold mb-6">Add a Beneficiary</h2>
+        <h2 className="text-2xl text-white font-semibold mb-6">Add a Beneficiary</h2>
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Beneficiary Account No.</label>

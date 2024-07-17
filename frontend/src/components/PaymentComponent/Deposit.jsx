@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api/axiosConfig';
+import axios from '../../api/axiosConfig';
 
 const Deposit = () => {
   const [accounts, setAccounts] = useState([]);

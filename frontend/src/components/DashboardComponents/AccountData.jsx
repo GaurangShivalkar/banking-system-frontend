@@ -46,7 +46,7 @@ const AccountData = ({ sourceAccountId }) => {
 
     return (
         <div className="grid grid-cols-2 gap-4">
-          <Link to="/accounts"> <Card title="Total Balance" amount={accountData.balance} /></Link>
+          <Link to="/accounts"> <Card title="Current Balance" amount={accountData.balance} /></Link>
           <Link to="/transactions"> <Card title="Total Credits" amount={credits} /></Link>
          
           <Link to="/transactions"><Card title="Total Debits" amount={debits} color="red" />  </Link>

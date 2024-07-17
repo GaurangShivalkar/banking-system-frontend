@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../api/axiosConfig";
+import axios from "../../api/axiosConfig";
 
 const AccountDetails = ({ accountNumber, onClose }) => {
   const [account, setAccount] = useState(null);
@@ -9,12 +9,10 @@ const AccountDetails = ({ accountNumber, onClose }) => {
       try {
         const response = await axios.get("/api/accounts/getAccountByAccountNo/" + accountNumber);
         setAccount(response.data);
-        console.log(response.data); // Assuming response.data is an object with account details
       } catch (error) {
         console.log(error);
       }
     }
-
     fetchAccountDetails();
   }, [accountNumber]); // Fetch details whenever accountNumber changes
 

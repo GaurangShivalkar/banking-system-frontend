@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../api/axiosConfig";
+import axios from "../../api/axiosConfig";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -112,7 +112,7 @@ const TransactionCard = ({ sourceAccountId }) => {
   return (
     <div className="flex flex-col w-full px-4 mt-7">
       <header className="mb-4">
-        <h2 className="text-l font-bold text-blue-950">Transactions</h2>
+        <h2 className="text-l font-bold text-blue-950">All Transactions</h2>
       </header>
 
       <div className="mb-4">

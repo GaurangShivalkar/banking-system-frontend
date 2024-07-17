@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api/axiosConfig';
+import axios from '../../api/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
 const OtherBankBeneficiary = ({ onClose }) => {
@@ -54,8 +54,8 @@ const OtherBankBeneficiary = ({ onClose }) => {
 
   return (
   
-      <div className="w-full bg-white p-8 shadow-md rounded">
-        <h2 className="text-2xl font-bold mb-6">Add a Beneficiary</h2>
+      <div className="w-full bg-gray-700 p-8 shadow-md rounded">
+        <h2 className="text-2xl text-white font-bold mb-6">Add a Beneficiary</h2>
         <form onSubmit={handleFormSubmit}>
           {/* <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="beneficiaryType">

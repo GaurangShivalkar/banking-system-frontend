@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../api/axiosConfig";
+import axios from "../../api/axiosConfig";
 import { Link } from 'react-router-dom';
 import AccountDetails from "./AccountDetails"; // Import the AccountDetails component
 
@@ -41,7 +41,7 @@ const AccountOverview = () => {
   return (
     <div className="sm:ml-64 p-4">
       <div className="text-white max-w-full mx-auto">
-        <h1 className="text-2xl font-semibold mb-6">Accounts</h1>
+       
         <div className="flex space-x-8 mb-8">
           <a href="#" className="text-purple-500 border-b-2 border-purple-500 pb-2">Accounts</a>
           {/* <a href="#" className="text-gray-500 hover:text-gray-300">Linked accounts</a>
