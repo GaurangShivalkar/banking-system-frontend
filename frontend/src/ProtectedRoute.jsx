@@ -63,7 +63,7 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
           checkingExpiryRef.current = false;
         });
       }
-    }, 600000);  // Check every 1 hr
+    }, 150000);  // Check every 1 hr
 
 
     return () => clearInterval(interval); // Cleanup on component unmount

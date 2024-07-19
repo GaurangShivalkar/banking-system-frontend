@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axiosConfig";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const AdminAccountList = () => {
   const [accounts, setAccounts] = useState([]);
@@ -62,6 +64,27 @@ const AdminAccountList = () => {
     }
   };
 
+  const generatePDF = () => {
+    const input = document.getElementById('admin-account-table');
+    if (!input) {
+      console.error('Element not found: #admin-account-table');
+      return;
+    }
+    
+    html2canvas(input, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('l', 'pt', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save("admin-account.pdf");
+    }).catch(error => {
+      console.error('Error generating PDF:', error);
+    });
+  };
+
   return (
     <div className="container mx-auto p-4">
       <div className="mb-4">
@@ -115,7 +138,7 @@ const AdminAccountList = () => {
 
       <div className="overflow-x-auto">
         {filteredList.length > 0 ? (
-          <table className="min-w-full bg-white border-collapse shadow-lg">
+          <table id="admin-account-table"className="min-w-full bg-white border-collapse shadow-lg">
             <thead className="bg-gray-800 text-white">
               <tr>
                 <th className="py-2 px-4 border">ID</th>
@@ -162,6 +185,7 @@ const AdminAccountList = () => {
           <p className="text-center text-gray-500">No Accounts found</p>
         )}
       </div>
+      <button onClick={generatePDF} className="w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-gray-800">Download PDF</button>
     </div>
   );
 };

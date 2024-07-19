@@ -22,11 +22,21 @@ const TransactionCard = ({ sourceAccountId }) => {
       const response = await axios.get(`/api/transactions/getTransactionBySourceAccountId/${sourceAccountId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setTransactions(response.data);
-      setFilteredTransactions(response.data);
+      
+      setTransactions(sortDesc(response.data));
+      setFilteredTransactions(sortDesc(response.data));
     } catch (error) {
       console.error("Error fetching transactions:", error);
     }
+  }
+
+  const sortDesc = (transaction) => {
+      const sorted = transaction.sort((a,b) => {
+        const c = formatTimestamp(a.timestamp)
+        const d = formatTimestamp(b.timestamp)
+        return d-c;
+      })
+      return sorted;
   }
 
   const applyFilter = () => {
@@ -62,7 +72,7 @@ const TransactionCard = ({ sourceAccountId }) => {
           break;
       }
     }
-    setFilteredTransactions(filtered);
+    setFilteredTransactions(sortDesc(filtered));
   };
 
   // async function downloadPdf() {

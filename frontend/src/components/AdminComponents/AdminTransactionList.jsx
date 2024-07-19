@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axiosConfig";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const AdminTransactionList = () => {
     const [transactions, setTransactions] = useState([]);
@@ -16,13 +18,21 @@ const AdminTransactionList = () => {
     const fetchTransactions = async () => {
         try {
             const response = await axios.get("/api/transactions/showTransaction", { headers: { Authorization: `Bearer ${token}` } });
-            setTransactions(response.data);
-            setFilteredList(response.data);
+            setTransactions(sortDesc(response.data));
+            setFilteredList(sortDesc(response.data));
         } catch (error) {
             console.error("Error fetching accounts data:", error);
         }
     };
 
+    const sortDesc = (transaction) => {
+        const sorted = transaction.sort((a,b) => {
+          const c = formatTimestamp(a.timestamp)
+          const d = formatTimestamp(b.timestamp)
+          return d-c;
+        })
+        return sorted;
+    }
     const applyFilter = () => {
         let filtered = [...transactions];
         if (filterType && filterValue) {
@@ -52,7 +62,7 @@ const AdminTransactionList = () => {
                     break;
             }
         }
-        setFilteredList(filtered);
+        setFilteredList(sortDesc(filtered));
     };
 
     const updateStatus = async (transactionId, newStatus) => {
@@ -72,6 +82,27 @@ const AdminTransactionList = () => {
         const jsDate = new Date(year, month - 1, day, hour, minute, second);
         return jsDate;
     };
+
+    const generatePDF = () => {
+        const input = document.getElementById('admin-transaction-table');
+        if (!input) {
+          console.error('Element not found: #admin-transaction-table');
+          return;
+        }
+        
+        html2canvas(input, { scale: 2 }).then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('l', 'pt', 'a4');
+          const imgProps = pdf.getImageProperties(imgData);
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    
+          pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+          pdf.save("admin-transaction.pdf");
+        }).catch(error => {
+          console.error('Error generating PDF:', error);
+        });
+      };
 
     return (
         <div className="container mx-auto p-4">

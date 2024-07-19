@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../api/axiosConfig';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const OtherBankBeneficiary = ({ onClose }) => {
   const navigate = useNavigate();
@@ -46,9 +47,12 @@ const OtherBankBeneficiary = ({ onClose }) => {
     try {
       await axios.post("/api/beneficiaries/addBeneficiary", formData, { headers: { Authorization: `Bearer ${token}` } });
       alert('Beneficiary has been added successfully');
+      //toast.success('Beneficiary has been added successfully', { autoClose: 3000 });
+      
     } catch (error) {
       console.error('Error adding beneficiary:', error);
       alert('An error occurred while adding beneficiary');
+      //toast.warning('An error occurred while adding beneficiary', { autoClose: 3000 });
     }
   };
 
@@ -150,6 +154,7 @@ const OtherBankBeneficiary = ({ onClose }) => {
               Add
             </button>
           </div>
+          <ToastContainer />
         </form>
       </div>
   

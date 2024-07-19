@@ -45,6 +45,7 @@ const SelfTransfer = () => {
         });
         const internalBeneficiaries = responseBeneficiary.data.filter(beneficiary => beneficiary.beneficiaryType === 'INTERNAL');
         setBeneficiaryList(internalBeneficiaries);
+       
       } catch (error) {
         console.error('Error fetching beneficiary details:', error);
       }

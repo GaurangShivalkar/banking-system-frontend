@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../../api/axiosConfig';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const OwnBankBeneficiary = ({ onClose }) => {
   const [name, setName] = useState("");
@@ -25,10 +26,13 @@ const OwnBankBeneficiary = ({ onClose }) => {
     try {
       await axios.post("/api/beneficiaries/addBeneficiary", formDataOwn, { headers: { Authorization: `Bearer ${token}` } });
       alert('Beneficiary has been added successfully');
+      // toast.success('Beneficiary has been added successfully', { autoClose: 3000 });
+     
     } catch (error) {
       console.error('Error adding beneficiary:', error);
-      alert('An error occurred while adding beneficiary');
-    }
+      alert('An error occurred while adding beneficiary', { autoClose: 3000 });
+    //   toast.warning('An error occurred while adding beneficiary', { autoClose: 3000 });
+     }
   };
   const handleBackButton = () => {
     setShowSuccess(false);
@@ -86,6 +90,7 @@ const OwnBankBeneficiary = ({ onClose }) => {
               Add
             </button>
           </div>
+          <ToastContainer />
         </form>
       </div>
  

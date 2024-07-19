@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axiosConfig";
 import AdminNavbarComponent from "../../components/AdminComponents/AdminNavbar";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const BeneficiaryList = () => {
   const [beneficiaries, setBeneficiaries] = useState([]);
@@ -58,6 +60,27 @@ const BeneficiaryList = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const generatePDF = () => {
+    const input = document.getElementById('admin-beneficiary-table');
+    if (!input) {
+      console.error('Element not found: #admin-beneficiary-table');
+      return;
+    }
+    
+    html2canvas(input, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('l', 'pt', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save("admin-beneficiary.pdf");
+    }).catch(error => {
+      console.error('Error generating PDF:', error);
+    });
+  };
 
   return (
 

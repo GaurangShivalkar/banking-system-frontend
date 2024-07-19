@@ -76,7 +76,7 @@ function NavbarComponent() {
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
       
           <div className="flex items-center justify-between ps-2.5 mb-5">
-            <Link to="/" className="flex items-center">
+            <Link to="/dashboard" className="flex items-center">
               <img src="/vite.svg" className="h-6 me-3 sm:h-7" alt="vite Logo" />
               <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">ENQ BANK</span>
             </Link>
