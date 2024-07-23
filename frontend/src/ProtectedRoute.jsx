@@ -34,9 +34,9 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
       try {
 
         const isExpired = await axios.get(`/auth/checkExpiry/${token}`)
-      
+
         const isTokenExpired = isExpired.data;
-        
+
         if (isTokenExpired) {
           alertSessionExpired();
         }
@@ -49,9 +49,15 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
       }
     };
 
-    const alertSessionExpired = () => {
+    const alertSessionExpired = async () => {
       alert("Your session has expired. Please log in again.");
-      localStorage.clear();
+      const response = await axios.delete(`/auth/deleteRefreshToken`, { data: { token: refreshToken } });
+      if (response.status == 200) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('customerId');
+        localStorage.removeItem('refreshToken');
+        navigate('/');
+      }
       setTokenValid(false);
       navigate("/login"); // Redirect to login page
     };

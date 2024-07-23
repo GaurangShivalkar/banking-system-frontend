@@ -18,7 +18,7 @@ useEffect(() => {
         
         const response = await axios.get("/api/transactions/changedBalance/"+sourceAccountId, { headers: { Authorization: `Bearer ${token}` } }); // Assuming your backend is running on the same host
         setBarData(response.data); 
-        console.log(response.data);
+      
       } catch (error) {
         console.error('Error fetching data:', error);
     }

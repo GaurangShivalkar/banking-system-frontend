@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import {AiOutlineTransaction, AiOutlineContacts,} from 'react-icons/ai';
 import {MdOutlineDashboard, MdAccountBalance, MdArrowBackIos, MdOutlinePayments, MdOutlinePerson, MdLogout, MdOutlineMenu} from "react-icons/md";
+import axios from '../api/axiosConfig';
 
 function NavbarComponent() {
 
@@ -10,11 +11,17 @@ function NavbarComponent() {
   const location = useLocation();
   const [activeItem, setActiveItem] = useState(location.pathname);
   const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar visibility
+  const refreshToken = localStorage.getItem("refreshToken")
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('customerId');
-    navigate('/');
+  const handleLogout = async() => {
+
+    const response = await axios.delete(`/auth/deleteRefreshToken`, { data: { token: refreshToken } });
+    if(response.status == 200){
+      localStorage.removeItem('token');
+      localStorage.removeItem('customerId');
+      localStorage.removeItem('refreshToken');
+      navigate('/');
+    }
   };
 
   const menuItems = [

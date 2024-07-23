@@ -30,38 +30,6 @@ import AdminUsers from './pages/admin/AdminUser';
 import Unauthorize from './pages/Unauthorize';
 
 export default function App() {
-  //setIsLoggedIn={setIsLoggedIn} startSessionTimer={startSessionTimer}
-  
-      // { setIsLoggedIn, startSessionTimer }
-      // setIsLoggedIn(true);
-      // startSessionTimer();
-
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [logoutTimer, setLogoutTimer] = useState(null);
-
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     startSessionTimer();
-  //   }
-
-  // }, [isLoggedIn]);
-
-  // const startSessionTimer = () => {
-  //   const timerId = setTimeout(() => {
-  //     alert('Session expired. You will be logged out.');
-  //     handleLogout();
-  //   }, 0.5* 60 * 1000); // 3 minutes in milliseconds
-
-  //   setLogoutTimer(timerId);
-  // };
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem('token');
-  //   localStorage.removeItem('customerId');
-  //   window.location.reload();
-  // };
-
-
   return (
     <BrowserRouter>
       <Routes>

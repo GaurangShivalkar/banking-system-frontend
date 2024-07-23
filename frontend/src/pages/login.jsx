@@ -14,10 +14,11 @@ function LoginPage() {
     try {
 
       const response = await axios.post("/auth/login", { email, password });
-      const token = response.data; // Assuming your backend returns just the token
-
+      const token = response.data.token; // Assuming your backend returns just the token
+      const refreshToken = response.data.refreshToken;
       // Store the token in localStorage
       localStorage.setItem("token", `${token}`);
+      localStorage.setItem("refreshToken", `${refreshToken}`);
 
       //get data from token
       const userResponse = await axios.get("/auth/user", {
