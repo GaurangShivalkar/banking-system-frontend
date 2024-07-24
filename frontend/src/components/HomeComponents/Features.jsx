@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Features() {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        setIsVisible(true);
+    }, []);
+
     const motivationItems = [
         {
             iconPath: '/icons/icon-online.svg',
@@ -31,7 +37,7 @@ function Features() {
     return (
         <section id="features" className="px-14 bg-neutral-light-grayish-blue lg:py-10">
             <div className="container text-center lg:text-left">
-                <div className="grid lg:grid-cols-2 mb-12 lg:mb-16">
+                <div className={`grid lg:grid-cols-2 mb-12 lg:mb-16 transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                     <div className="col-span-1">
                         <h2 className="text-3xl lg:text-4xl text-primary-dark-blue pb-5">
                             Why choose ENQ bank?
@@ -42,10 +48,10 @@ function Features() {
                         </p>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 gap-9 lg:gap-6 lg:grid-cols-4">
+                <div className={`grid grid-cols-1 gap-9 lg:gap-6 lg:grid-cols-4 transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                     {motivationItems.map((item) => (
                         <div key={item.title} className="justify-center">
-                            <div className="flex justify-center lg:justify-start">
+                            <div className="flex justify-center lg:justify-start transition-transform duration-500 ease-in-out transform" style={{ transform: isVisible ? 'translateY(0)' : 'translateY(20px)' }}>
                                 <img src={item.iconPath} alt="" />
                             </div>
                             <h2 className="text-lg text-primary-dark-blue py-4 lg:pt-9 lg:pb-6 lg:text-xl lg:font-bold">

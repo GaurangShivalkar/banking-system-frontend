@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "../../api/axiosConfig";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { generatePdf } from '../../api/generatePdf'; 
 
 const AdminTransactionList = () => {
     const [transactions, setTransactions] = useState([]);
@@ -83,27 +84,6 @@ const AdminTransactionList = () => {
         return jsDate;
     };
 
-    const generatePDF = () => {
-        const input = document.getElementById('admin-transaction-table');
-        if (!input) {
-          console.error('Element not found: #admin-transaction-table');
-          return;
-        }
-        
-        html2canvas(input, { scale: 2 }).then((canvas) => {
-          const imgData = canvas.toDataURL('image/png');
-          const pdf = new jsPDF('l', 'pt', 'a4');
-          const imgProps = pdf.getImageProperties(imgData);
-          const pdfWidth = pdf.internal.pageSize.getWidth();
-          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    
-          pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-          pdf.save("admin-transaction.pdf");
-        }).catch(error => {
-          console.error('Error generating PDF:', error);
-        });
-      };
-
     return (
         <div className="container mx-auto p-4">
             <div className="mb-4">
@@ -155,7 +135,8 @@ const AdminTransactionList = () => {
             </div>
             <div className="overflow-x-auto">
                 {filteredList.length > 0 ? (
-                    <table className="min-w-full bg-white border-collapse shadow-lg">
+                    <table id="admin-transactions-table" className="min-w-full bg-white border-collapse shadow-lg">
+                        
                         <thead className="bg-gray-800 text-white">
                             <tr>
                                 <th className="py-2 px-4 border">Timestamp</th>
@@ -174,7 +155,7 @@ const AdminTransactionList = () => {
                         <tbody>
                             {filteredList.map((transaction, index) => (
                                 <tr key={index} className="text-center odd:bg-gray-100 even:bg-gray-200">
-                                    <td className="py-2 px-4 border">{formatTimestamp(transaction.timestamp).toLocaleDateString('en-GB')}</td>
+                                    <td className="py-2 px-4 border">{formatTimestamp(transaction.timestamp).toString()}</td>
                                     <td className="py-2 px-4 border">{transaction.amount}</td>
                                     <td className="py-2 px-4 border">{transaction.changedBalance}</td>
                                     <td className="py-2 px-4 border">{transaction.description}</td>
@@ -205,6 +186,7 @@ const AdminTransactionList = () => {
                     <p className="text-center text-gray-500">No Accounts found</p>
                 )}
             </div>
+            <button onClick={() => generatePdf("admin-transactions-table","admin-transactions-pdf")} className="w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-gray-800">Download PDF</button>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axiosConfig";
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import autoTable from "jspdf-autotable";
 
 const TransactionCard = ({ sourceAccountId }) => {
   const [transactions, setTransactions] = useState([]);
@@ -22,7 +22,7 @@ const TransactionCard = ({ sourceAccountId }) => {
       const response = await axios.get(`/api/transactions/getTransactionBySourceAccountId/${sourceAccountId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      
+
       setTransactions(sortDesc(response.data));
       setFilteredTransactions(sortDesc(response.data));
     } catch (error) {
@@ -31,12 +31,12 @@ const TransactionCard = ({ sourceAccountId }) => {
   }
 
   const sortDesc = (transaction) => {
-      const sorted = transaction.sort((a,b) => {
-        const c = formatTimestamp(a.timestamp)
-        const d = formatTimestamp(b.timestamp)
-        return d-c;
-      })
-      return sorted;
+    const sorted = transaction.sort((a, b) => {
+      const c = formatTimestamp(a.timestamp)
+      const d = formatTimestamp(b.timestamp)
+      return d - c;
+    })
+    return sorted;
   }
 
   const applyFilter = () => {
@@ -92,24 +92,15 @@ const TransactionCard = ({ sourceAccountId }) => {
   // }
 
   const generatePDF = () => {
-    const input = document.getElementById('transactions-table');
-    if (!input) {
-      console.error('Element not found: #transactions-table');
-      return;
-    }
-    
-    html2canvas(input, { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('l', 'pt', 'a4');
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save("transactions.pdf");
-    }).catch(error => {
-      console.error('Error generating PDF:', error);
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      encryption: {
+        userPassword: `${sourceAccountId}`
+      }
     });
+    pdf.text(`Transaction data for your account number: ${sourceAccountId}`, 15, 10); // Adjusted position
+    pdf.autoTable({ html: '#transactions-table', startY: 20 });
+    pdf.save("transactions-data.pdf");
   };
 
   const formatTimestamp = (timestamp) => {

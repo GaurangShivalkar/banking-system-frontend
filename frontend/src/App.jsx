@@ -1,6 +1,5 @@
-import './App.css'
+import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 
 
 import LoginPage from './pages/login';
@@ -29,44 +28,43 @@ import AdminCustomers from './pages/admin/AdminCustomers';
 import AdminUsers from './pages/admin/AdminUser';
 import Unauthorize from './pages/Unauthorize';
 
+
+
 export default function App() {
+  
+
   return (
     <BrowserRouter>
       <Routes>
-
-        <Route path="/kyc"element={<KycPage />}/>
-
-        {/* <Route path="/createAccount" element={<div><Stepper /><CreateAccountPage /></div>}/>
-        <Route path="/register" element={<div><Stepper /><RegistrationPage /></div> }/>
-        <Route path="/otp" element={<div><Stepper /><OtpPage /></div>}/> */}
-
-        <Route path="/createAccount" element={<CreateAccountPage />}/>
-        <Route path="/registration" element={<RegistrationPage />}/>
-        <Route path="/otp" element={<OtpPage />}/>
-        <Route exact path="/login" element={<LoginPage/>} />
-        <Route path="/" element={<HomePage />}/>
+        <Route path="/kyc" element={<KycPage />} />
+        <Route path="/createAccount" element={<CreateAccountPage />} />
+        <Route path="/registration" element={<RegistrationPage />} />
+        <Route path="/otp" element={<OtpPage />} />
+        <Route exact path="/login" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/unauthorize" element={<Unauthorize />} />
         
-        <Route element={<ProtectedRoute/>}>
+        <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/accounts" element={<AccountPage/>} />
-          <Route path="/transactions" element={<TransactionPage/>} />  
-          <Route path='/payment' element={<PaymentPage/>}/>
-          <Route path="/profile" element={<ProfilePage/>} />
-          <Route path="/confirmTransactions" element={<ConfirmTransaction />}/>
-          <Route path="/beneficiary" element={<BeneficiaryPage/>}/>
+          <Route path="/accounts" element={<AccountPage />} />
+          <Route path="/transactions" element={<TransactionPage />} />  
+          <Route path='/payment' element={<PaymentPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/confirmTransactions" element={<ConfirmTransaction />} />
+          <Route path="/beneficiary" element={<BeneficiaryPage />} />
         </Route>
 
-        <Route element={<ProtectedRoute isAdminRoute={true}/>}>
-          <Route path="/admin" element={<Admin/>}/>
-          <Route path="/adminAccounts" element={<AdminAccounts/>}/>
-          <Route path="/adminTransactions" element={<AdminTransactions/>}/>
-          <Route path="/adminBeneficiaries" element={<AdminBeneficiaries/>}/>
-          <Route path="/adminBranches" element={<AdminBranches/>}/>
-          <Route path="/adminCustomers" element={<AdminCustomers/>}/>
-          <Route path="/adminUsers" element={<AdminUsers/>}/>
+        <Route element={<ProtectedRoute isAdminRoute={true} />}>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/adminAccounts" element={<AdminAccounts />} />
+          <Route path="/adminTransactions" element={<AdminTransactions />} />
+          <Route path="/adminBeneficiaries" element={<AdminBeneficiaries />} />
+          <Route path="/adminBranches" element={<AdminBranches />} />
+          <Route path="/adminCustomers" element={<AdminCustomers />} />
+          <Route path="/adminUsers" element={<AdminUsers />} />
         </Route>
       </Routes>
+     
     </BrowserRouter>
-  )
+  );
 }

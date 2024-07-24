@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../api/axiosConfig';
 import AdminNavbarComponent from '../../components/AdminComponents/AdminNavbar';
+import { generatePdf } from '../../api/generatePdf';
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -106,7 +107,7 @@ const BranchList = ({ onEdit }) => {
         <button onClick={applyFilter} className="w-full bg-blue-600 text-white p-2 rounded mt-2 hover:bg-gray-800">Apply Filter</button>
       </div>
       {filteredList.length > 0 ? (
-        <table className="min-w-full bg-white border-collapse shadow-lg">
+        <table id="admin-branches-table" className="min-w-full bg-white border-collapse shadow-lg">
           <thead className="bg-gray-800 text-white">
             <tr>
               <th className="py-2 px-4 border">ID</th>
@@ -135,6 +136,7 @@ const BranchList = ({ onEdit }) => {
       ) : (
         <p className="text-center text-gray-500">No Branches found</p>
       )}
+      <button onClick={() => generatePdf("admin-branches-table","admin-branches-pdf")} className="w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-gray-800">Download PDF</button>
     </div>
   );
 };

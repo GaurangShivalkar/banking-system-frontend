@@ -14,15 +14,18 @@ function SecondarySection() {
         <section id="features" className="py-14 bg-neutral-light-grayish-blue lg:py-24 relative">
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${image4})` }}></div>
             <div className="relative z-10 text-center max-w-xl mx-auto">
-                <h1 className="text-4xl lg:text-5xl font-bold text-black mb-4">
-                    Digital Banking
-                </h1>
-                <p className="text-neutral-grayish-blue text-lg lg:text-xl mb-6">
+                <h1 className="text-4xl lg:text-5xl font-bold text-black mb-4" data-aos="zoom-y-out">Digital Banking</h1>
+                <p className="text-neutral-grayish-blue text-lg lg:text-xl mb-6" data-aos="zoom-y-out" data-aos-delay="150">
                     Take your financial life online. Your ENQ Bank account will be a one-stop-shop for spending, saving, budgeting, investing, and much more.
                 </p>
-                <button onClick={handleCreateAccount} className="text-white bg-blue-700 hover:bg-blue-800 px-7 py-3 rounded-full text-sm lg:text-base shadow-lg">
-                    Create Account
-                </button>
+                <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
+                    <button 
+                        onClick={handleCreateAccount} 
+                        className="btn p-5 rounded-3xl text-white bg-blue-700 hover:bg-blue-800 w-full sm:w-auto sm:mb-0 shadow-lg"
+                    >
+                        Create Account
+                    </button>
+                </div>
             </div>
         </section>
     );
