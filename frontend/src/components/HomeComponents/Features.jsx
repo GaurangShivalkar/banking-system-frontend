@@ -1,68 +1,88 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import { Navigation} from 'swiper/modules';
+import { FaUser, FaUserFriends, FaMoneyCheckAlt, FaExchangeAlt, FaFileInvoiceDollar, FaDownload } from 'react-icons/fa';
 
 function Features() {
-    const [isVisible, setIsVisible] = useState(false);
-
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
-
     const motivationItems = [
         {
-            iconPath: '/icons/icon-online.svg',
+            icon: <FaUser />,
             title: 'Account Management',
-            subtitle:
-                'Easily manage your accounts, track your transactions, and stay on top of your finances with our intuitive platform.',
+            subtitle: 'Easily manage your accounts, track your transactions, and stay on top of your finances with our intuitive platform.',
         },
         {
-            iconPath: '/icons/icon-budgeting.svg',
+            icon: <FaUserFriends />,
             title: 'Beneficiary Addition',
-            subtitle:
-                'Add beneficiaries for both internal and external account holders quickly and securely.',
+            subtitle: 'Add beneficiaries for both internal and external account holders quickly and securely.',
         },
         {
-            iconPath: '/icons/icon-onboarding.svg',
+            icon: <FaMoneyCheckAlt />,
             title: 'Internal Payments',
-            subtitle:
-                'Make payments within the bank seamlessly, whether to your own accounts or to other account holders.',
+            subtitle: 'Make payments within the bank seamlessly, whether to your own accounts or to other account holders.',
         },
         {
-            iconPath: '/icons/icon-api.svg',
+            icon: <FaExchangeAlt />,
             title: 'External Payments',
-            subtitle:
-                'Transfer money outside the bank using IMPS, RTGS, and NEFT with ease and confidence.',
+            subtitle: 'Transfer money outside the bank using IMPS, RTGS, and NEFT with ease and confidence.',
+        },
+        {
+            icon: <FaFileInvoiceDollar />,
+            title: 'Transaction Management',
+            subtitle: 'Filter transactions, verify them, and receive email confirmations upon successful completion.',
+        },
+        {
+            icon: <FaDownload />,
+            title: 'Statement Download',
+            subtitle: 'Download your account statements easily and keep track of your financial records.',
         },
     ];
 
     return (
-        <section id="features" className="px-14 bg-neutral-light-grayish-blue lg:py-10">
-            <div className="container text-center lg:text-left">
-                <div className={`grid lg:grid-cols-2 mb-12 lg:mb-16 transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <section id="features" className="py-14 lg:py-24 relative ">
+            <div className="container mx-auto">
+                <div className={`mb-12 lg:mb-16`}>
                     <div className="col-span-1">
                         <h2 className="text-3xl lg:text-4xl text-primary-dark-blue pb-5">
                             Why choose ENQ bank?
                         </h2>
                         <p className="text-neutral-grayish-blue text-sm lg:text-base leading-5">
-                            We leverage Open Banking to turn your bank account into your
-                            financial hub. Control your finances like never before.
+                            We leverage Open Banking to turn your bank account into your financial hub. Control your finances like never before.
                         </p>
                     </div>
                 </div>
-                <div className={`grid grid-cols-1 gap-9 lg:gap-6 lg:grid-cols-4 transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                <Swiper
+                  modules={[Navigation]}
+                    spaceBetween={30}
+                    slidesPerView={1}
+                    loop={true}
+                   
+                    navigation
+                    breakpoints={{
+                        640: {slidesPerView: 1,},
+                        768: {slidesPerView: 2,},
+                        1024: {slidesPerView: 3,},
+                    }}
+                >
                     {motivationItems.map((item) => (
-                        <div key={item.title} className="justify-center">
-                            <div className="flex justify-center lg:justify-start transition-transform duration-500 ease-in-out transform" style={{ transform: isVisible ? 'translateY(0)' : 'translateY(20px)' }}>
-                                <img src={item.iconPath} alt="" />
+                        <SwiperSlide key={item.title} className="bg-black/30 border border-gray-200 rounded-lg p-6 shadow-lg backdrop-blur-md w-80 h-60">
+                            <div className="flex items-center justify-center mb-4">
+                                <div className="text-4xl text-slate-500 bg-black p-3 rounded-full">
+                                    {item.icon}
+                                </div>
                             </div>
-                            <h2 className="text-lg text-primary-dark-blue py-4 lg:pt-9 lg:pb-6 lg:text-xl lg:font-bold">
+                            <h2 className="text-xl font-semibold mb-4 text-primary-dark-blue">
                                 {item.title}
                             </h2>
                             <p className="text-neutral-grayish-blue text-sm font-light lg:text-base leading-5">
                                 {item.subtitle}
                             </p>
-                        </div>
+                        </SwiperSlide>
                     ))}
-                </div>
+                </Swiper>
             </div>
         </section>
     );

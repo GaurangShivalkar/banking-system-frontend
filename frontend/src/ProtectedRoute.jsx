@@ -20,9 +20,10 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
     }
 
     const fetchUserRole = async () => {
+      const token1 = localStorage.getItem("token");
       try {
         const userResponse = await axios.get("/auth/user", {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token1}` }
         });
         setRole(userResponse.data.role);
       } catch (error) {
@@ -36,10 +37,13 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
 
     const checkTokenExpiry = async () => {
       try {
-        const isExpired = await axios.get(`/auth/checkExpiry/${token}`)
+        const token1 = localStorage.getItem("token");
+
+        const isExpired = await axios.get(`/auth/checkExpiry/${token1}`)
         const isTokenExpired = isExpired.data;
 
         if (isTokenExpired) {
+          setShowModal(false);
           alertSessionExpired();
         } else {
           console.log("Is token expired:", isTokenExpired);
@@ -52,7 +56,7 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
     const alertSessionExpired = async () => {
       alert("Your session has expired. Please log in again.");
       const response = await axios.delete(`/auth/deleteRefreshToken`, { data: { token: refreshToken } });
-      if (response.status === 200) {
+      if (response.status == 200) {
         localStorage.removeItem('token');
         localStorage.removeItem('customerId');
         localStorage.removeItem('refreshToken');
@@ -62,18 +66,17 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
     };
 
     const interval = setInterval(() => {
- checkTokenExpiry();
+      checkTokenExpiry();
+    }, 60000);  // Check every 1 minute
 
-    }, 30000);  // Check every 1
-
-    const timeoutAlert = setTimeout(() => {
+    const intervalAlert = setInterval(() => {
       setShowModal(true);
-    }, 50000); // Show modal 4 minute
+    }, 90000); // Show modal 1.5 minute
 
     return () => {
       clearInterval(interval);
-      clearTimeout(timeoutAlert);
-    }; // Cleanup on component unmount
+      clearInterval(intervalAlert);
+    };
 
   }, []);
 
@@ -85,10 +88,11 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
 
       localStorage.setItem("token", newToken);
       setShowModal(false);
+
     } catch (error) {
       console.error("Failed to refresh token:", error);
       alert("Unable to continue session. Please log in again.");
-    
+
     }
   };
 

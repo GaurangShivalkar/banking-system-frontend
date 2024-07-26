@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import MainSection from "../components/HomeComponents/MainSection";
 import Features from "../components/HomeComponents/Features";
 import Footer from "../components/HomeComponents/Footer";
-import SecondarySection from "../components/HomeComponents/SecondarySection";
 import Header from "../components/HomeComponents/Header";
+import AboutUs from "../components/HomeComponents/AboutUs";
+import Security from "../components/HomeComponents/Security";
+import CustomerSupport from "../components/HomeComponents/CustomerSupport";
+import HeroSection from "../components/HomeComponents/HeroSection";
 
 // function Header() {
 //   const navigate = useNavigate();
@@ -57,12 +60,15 @@ import Header from "../components/HomeComponents/Header";
 
 function HomePage() {
   return (
-    <div >
+    <div>
       <Header/>
-      <div className="pt-20 items-center pb-11">
-        <MainSection /> 
-        <SecondarySection/>
+      <div className="pt-20 items-center pb-11 bg-theme-image bg-cover bg-center text-white">
+        <HeroSection/>
         <Features />
+        <Security/>
+        <CustomerSupport/>
+        <AboutUs/>
+        {/* <MainSection />  */}
       </div>
       <Footer />
     </div>
