@@ -11,7 +11,7 @@ function Security() {
         {
             icon: <FaLock />,
             title: 'Secure Authentication',
-            description: 'Our secure authentication process includes multi-factor verification to keep your accounts safe.',
+            description: 'Our secure authentication process includes OTP based verification to keep your accounts safe.',
         },
         {
             icon: <FaUserSecret />,
@@ -32,7 +32,7 @@ function Security() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                     {securityItems.map((item) => (
-                        <div key={item.title} className="bg-black/30 border border-gray-200 rounded-lg p-6 shadow-lg backdrop-blur-md">
+                        <div key={item.title} className="bg-black/30 border border-gray-200 rounded-lg p-6 shadow-lg backdrop-blur-sm">
                             <div className="flex items-center justify-center mb-4">
                                 <div className="text-4xl text-slate-500 bg-black p-3 rounded-full">
                                     {item.icon}

@@ -10,7 +10,7 @@ const SessionTimeoutModal = ({ showModal, onClose, onContinueSession }) => {
         <h2 className="text-lg font-semibold">Session Timeout</h2>
         <p className="mt-2">Your session is about to expire. Do you want to continue your session?</p>
         <div className="mt-4 flex justify-end space-x-2">
-          <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">Ok</button>
+          <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">Cancel</button>
           <button onClick={onContinueSession} className="bg-blue-500 text-white px-4 py-2 rounded">Continue Session</button>
         </div>
       </div>

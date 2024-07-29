@@ -1,6 +1,6 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import LoginPage from './pages/login';
 import RegistrationPage from './pages/registration';
@@ -28,10 +28,7 @@ import AdminCustomers from './pages/admin/AdminCustomers';
 import AdminUsers from './pages/admin/AdminUser';
 import Unauthorize from './pages/Unauthorize';
 
-
-
 export default function App() {
-  
 
   return (
     <BrowserRouter>

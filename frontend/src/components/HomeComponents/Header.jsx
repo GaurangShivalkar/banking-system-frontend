@@ -67,7 +67,7 @@ function Header() {
               <li>
                 <button
                   onClick={handleLogin}
-                  className="font-medium text-gray-400 hover:text-white px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                  className="font-medium text-gray-400 hover:text-blue-700 px-5 py-3 flex items-center transition duration-150 ease-in-out"
                 >
                   Sign in
                 </button>
@@ -84,15 +84,15 @@ function Header() {
         {/* Mobile Navigation */}
         <div className={`md:hidden ${menuOpen ? 'block' : 'hidden'}`}>
           <ul className="flex flex-col space-y-2 py-4 px-2">
-            <li><a href="#hero-section" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Home</a></li>
-            <li><a href="#features" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Features</a></li>
-            <li><a href="#security" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Security</a></li>
-            <li><a href="#customer-support" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Support</a></li>
-            <li><a href="#about-us" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">About Us</a></li>
+            <li><a href="#hero-section" className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black">Home</a></li>
+            <li><a href="#features" className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black">Features</a></li>
+            <li><a href="#security" className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black">Security</a></li>
+            <li><a href="#customer-support" className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black">Support</a></li>
+            <li><a href="#about-us" className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black">About Us</a></li>
             <li>
               <button
                 onClick={handleLogin}
-                className="font-medium text-gray-400 hover:text-white px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                className="font-medium text-gray-400 hover:text-blue-700 px-5 py-3 flex items-center transition duration-150 ease-in-out"
               >
                 Sign in
               </button>

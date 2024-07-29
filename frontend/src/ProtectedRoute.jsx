@@ -3,17 +3,48 @@ import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import axios from "./api/axiosConfig";
 import SessionTimeoutModal from './api/SessionTimeoutModal'
 
+import { useIdleTimer } from 'react-idle-timer'
+
 export const ProtectedRoute = ({ isAdminRoute }) => {
   const [role, setRole] = useState(null);
   const [tokenValid, setTokenValid] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const checkingExpiryRef = useRef(false);
+  // const checkingExpiryRef = useRef(false);
   const navigate = useNavigate();
+
+  const [state, setState] = useState('Active')
+  const [count, setCount] = useState(0)
+  const [remaining, setRemaining] = useState(0)
+
+  const onIdle = () => {
+    setState('Idle');
+    console.log(state);
+    setShowModal('true');
+  }
+
+  const onActive = () => {
+    setState('Active')
+    setShowModal('false');
+  }
+
+  const onAction = () => {
+    setCount(count + 1)
+    console.log(count);
+    
+  }
+
+  const { getRemainingTime } = useIdleTimer({
+    onIdle,
+    onActive,
+    onAction,
+    timeout: 60000_000,
+    throttle: 500
+  })
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const refreshToken = localStorage.getItem("refreshToken");
-
+   
     if (!token) {
       setTokenValid(false);
       return;
@@ -41,8 +72,10 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
 
         const isExpired = await axios.get(`/auth/checkExpiry/${token1}`)
         const isTokenExpired = isExpired.data;
-
-        if (isTokenExpired) {
+        if(isTokenExpired && onActive == 'Active'){
+          handleContinueSession();
+        }
+        else if (isTokenExpired) {
           setShowModal(false);
           alertSessionExpired();
         } else {
@@ -69,13 +102,18 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
       checkTokenExpiry();
     }, 60000);  // Check every 1 minute
 
-    const intervalAlert = setInterval(() => {
-      setShowModal(true);
-    }, 90000); // Show modal 1.5 minute
+    // const intervalAlert = setInterval(() => {
+    //   setShowModal(true);
+    // }, 90000); // Show modal 1.5 minute
+    const interval2 = setInterval(() => {
+      setRemaining(Math.ceil(getRemainingTime() / 1000));
+      
+    }, 90000)
 
     return () => {
       clearInterval(interval);
-      clearInterval(intervalAlert);
+      clearInterval(interval2);
+      //clearInterval(intervalAlert);
     };
 
   }, []);
@@ -110,6 +148,7 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
 
   return (
     <>
+ 
       <SessionTimeoutModal
         showModal={showModal}
         onClose={() => setShowModal(false)}

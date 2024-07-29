@@ -49,7 +49,7 @@ function CreateAccountPage() {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center h-screen bg-gray-800">
+    <section className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-slate-900 to-blue-900">
       <form onSubmit={handleAccountCreation} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
         <h1 className="text-3xl font-bold text-cyan-800 mb-6 text-center">Create Bank Account</h1>
         <div className="mb-4">

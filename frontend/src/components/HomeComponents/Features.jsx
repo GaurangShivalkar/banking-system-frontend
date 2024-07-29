@@ -68,7 +68,7 @@ function Features() {
                     }}
                 >
                     {motivationItems.map((item) => (
-                        <SwiperSlide key={item.title} className="bg-black/30 border border-gray-200 rounded-lg p-6 shadow-lg backdrop-blur-md w-80 h-60">
+                        <SwiperSlide key={item.title} className="bg-black/30 border border-gray-200 rounded-lg p-6 shadow-lg backdrop-blur-sm w-80 h-60">
                             <div className="flex items-center justify-center mb-4">
                                 <div className="text-4xl text-slate-500 bg-black p-3 rounded-full">
                                     {item.icon}

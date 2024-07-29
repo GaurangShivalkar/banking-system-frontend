@@ -21,7 +21,7 @@ function HeroSection() {
                 <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
                     <button 
                         onClick={handleCreateAccount} 
-                        className="btn p-5 rounded-3xl text-white bg-blue-500 hover:bg-blue-600 w-full sm:w-auto sm:mb-0 shadow-lg"
+                        className="btn p-5 rounded-3xl text-white bg-black hover:bg-slate-800 w-full sm:w-auto sm:mb-0 shadow-lg"
                     >
                         Create Account
                     </button>

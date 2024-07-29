@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AiOutlineDashboard, AiOutlineBank, AiOutlineTransaction, AiOutlineUser, AiOutlineLogout, AiOutlineContacts, AiOutlinePayCircle } from 'react-icons/ai';
+import axios from '../../api/axiosConfig';
 
 function AdminNavbarComponent() {
   const navigate = useNavigate();
@@ -11,9 +12,14 @@ function AdminNavbarComponent() {
     setActiveItem(location.pathname);
   }, [location.pathname]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/');
+  const handleLogout = async() => {
+    const response = await axios.delete(`/auth/deleteRefreshToken`, { data: { token: refreshToken } });
+    if(response.status == 200){
+      localStorage.removeItem('token');
+      localStorage.removeItem('customerId');
+      localStorage.removeItem('refreshToken');
+      navigate('/');
+    }
   };
 
   const menuItems = [

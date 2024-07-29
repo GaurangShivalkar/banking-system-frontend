@@ -11,10 +11,10 @@ function CustomerSupport() {
         {
             icon: <FaEnvelope />,
             title: 'Email Support',
-            description: 'Send us an email at <strong>support@enqbank.com</strong> and we\'ll get back to you within 24 hours.',
+            description: 'Send us an email at <strong>varada864@gmail.com</strong> and we\'ll get back to you within 24 hours.',
         },
         {
-            icon: <FaCommentDots />,
+            icon: <a href='https://wa.me/9820793511'><FaCommentDots /></a>,
             title: 'Live Chat',
             description: 'Chat with our support team in real-time. Click the live chat icon on the bottom right of the screen.',
         },
@@ -29,7 +29,7 @@ function CustomerSupport() {
                 </p>
                 <div className="grid md:grid-cols-3 gap-8">
                     {supportItems.map((item) => (
-                              <div key={item.title} className="bg-black/30 border border-gray-200 rounded-lg p-6 shadow-lg backdrop-blur-md">
+                              <div key={item.title} className="bg-black/30 border border-gray-200 rounded-lg p-6 shadow-lg backdrop-blur-sm">
                               <div className="flex items-center justify-center mb-4">
                                   <div className="text-4xl text-slate-500 bg-black p-3 rounded-full">
                                     {item.icon}

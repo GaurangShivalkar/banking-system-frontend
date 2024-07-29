@@ -62,7 +62,9 @@ function HomePage() {
   return (
     <div>
       <Header/>
-      <div className="pt-20 items-center pb-11 bg-theme-image bg-cover bg-center text-white">
+       {/* <div className="pt-20 items-center pb-11 bg-theme-image bg-cover bg-center text-white">  */}
+    <div className="pt-20 items-center pb-11 bg-gradient-to-r from-slate-900 to-blue-900 text-white"> 
+      
         <HeroSection/>
         <Features />
         <Security/>

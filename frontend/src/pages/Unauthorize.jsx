@@ -8,10 +8,10 @@ const Unauthorize = () => {
         navigate("/");
     }
     const handleBack = async () => {
-        navigate(-1);
+        navigate("/dashboard");
     }
     return (
-        <section className="bg-white dark:bg-gray-900 ">
+        <section className="bg-gradient-to-r from-slate-900 to-blue-900">
             <div className="container flex items-center min-h-screen px-6 py-12 mx-auto">
                 <div>
                     <p className="text-sm font-medium text-blue-500 dark:text-blue-400">404 error</p>

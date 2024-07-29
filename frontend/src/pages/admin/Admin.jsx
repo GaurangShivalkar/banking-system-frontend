@@ -165,24 +165,24 @@ const Admin = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <Link to="/adminTransactions">
-          <div className="bg-gray-200 shadow-lg rounded-lg p-4">
+          <div className="bg-gray-200 shadow-lg rounded-lg p-4 h-full w-full">
             <h2 className="text-xl text-black font-bold mb-2">Transactions Over Months</h2>
-            <Bar data={barChartData} options={{ plugins: { legend: { labels: { color: 'black' } } }, scales: { x: { ticks: { color: 'black' } }, y: { ticks: { color: 'black' } } } }} />     
+            <Bar className="h-full" data={barChartData} options={{ plugins: { legend: { labels: { color: 'black' } } }, scales: { x: { ticks: { color: 'black' } }, y: { ticks: { color: 'black' } } } }} />     
           </div></Link>
 
           <Link to="/adminUsers">
-          <div className="bg-gray-200 shadow-lg rounded-lg p-4">
+          <div className="bg-gray-200 shadow-lg rounded-lg p-4 h-full w-full">
             <h2 className="text-xl text-black font-bold mb-2">User Types</h2>
             <Pie data={pieChartData} options={{ plugins: { legend: { labels: { color: 'black' } } } }} />
           </div></Link>
         </div>
 
-        <Link to="/adminAccounts">
+        {/* <Link to="/adminAccounts">
         <div className="bg-gray-200 shadow-lg rounded-lg p-4">
           <h2 className="text-xl text-black font-bold mb-2">Revenue Over Months</h2>
           <Line data={lineChartData} options={{ plugins: { legend: { labels: { color: 'black' } } }, scales: { x: { ticks: { color: 'black' } }, y: { ticks: { color: 'black' } } } }} />
         </div>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
