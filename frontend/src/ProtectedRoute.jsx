@@ -37,7 +37,7 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
     onIdle,
     onActive,
     onAction,
-    timeout: 60000_000,
+    timeout: 60000,
     throttle: 500
   })
 
@@ -108,7 +108,7 @@ export const ProtectedRoute = ({ isAdminRoute }) => {
     const interval2 = setInterval(() => {
       setRemaining(Math.ceil(getRemainingTime() / 1000));
       
-    }, 90000)
+    }, 1000)
 
     return () => {
       clearInterval(interval);

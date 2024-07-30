@@ -46,13 +46,13 @@ const OtherBankBeneficiary = ({ onClose }) => {
 
     try {
       await axios.post("/api/beneficiaries/addBeneficiary", formData, { headers: { Authorization: `Bearer ${token}` } });
-      alert('Beneficiary has been added successfully');
-      //toast.success('Beneficiary has been added successfully', { autoClose: 3000 });
+      //alert('Beneficiary has been added successfully');
+      toast.success('Beneficiary has been added successfully', { autoClose: 3000 });
       
     } catch (error) {
       console.error('Error adding beneficiary:', error);
-      alert('An error occurred while adding beneficiary');
-      //toast.warning('An error occurred while adding beneficiary', { autoClose: 3000 });
+      //alert('An error occurred while adding beneficiary');
+      toast.warning('An error occurred while adding beneficiary', { autoClose: 3000 });
     }
   };
 

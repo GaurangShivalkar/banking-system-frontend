@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axiosConfig';
 import NavbarComponent from '../NavbarComponent';
-import SuccessComponent from './Sucess';
+//import SuccessComponent from './Sucess';
+import swal from 'sweetalert';
 
 const ConfirmTransaction = () => {
   const [transactionData, setTransactionData] = useState(null);
@@ -32,23 +33,23 @@ const ConfirmTransaction = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
      
-      
-  
       localStorage.removeItem('transactionData');
+      swal({
+        text: " Payment successful",
+        icon: "success",
+        closeOnClickOutside: false
+      }).then(() => {
+        navigate('/payment');
+      });
 
-      setShowSuccess(true);
+      //setShowSuccess(true);
     } catch (error) {
       console.error('Error submitting transaction:', error);
       //console.log("This is response"+error?.response?.data?.message);
       alert(error.response.data.message);
     }
   };
-
-  const handleCloseSuccess = () => {
-    setShowSuccess(false);
-    navigate('/payment');
-  };
-
+  // const handleCloseSuccess = () => {  //   setShowSuccess(false);  //   navigate('/payment');  // };
   const handleBackButton = () => {
     setShowSuccess(false);
     navigate(-1);
@@ -61,10 +62,7 @@ const ConfirmTransaction = () => {
     <div>
       <NavbarComponent />
       <div className='p-4 sm:ml-64'>
-      <button
-            onClick={handleBackButton}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4 hover:bg-gray-600 focus:outline-none focus:ring focus:border-blue-300"
-          >
+      <button onClick={handleBackButton} className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4 hover:bg-gray-600 focus:outline-none focus:ring focus:border-blue-300">
             Back
           </button>
         <div className="max-w-md mx-auto bg-white p-8 rounded shadow-md mt-10">
@@ -81,9 +79,8 @@ const ConfirmTransaction = () => {
           </button>
         </div>
       </div>
-      {showSuccess && <SuccessComponent onClose={handleCloseSuccess} />}
+      {/* {showSuccess && <SuccessComponent onClose={handleCloseSuccess} />} */}
     </div>
   );
 };
-
 export default ConfirmTransaction;

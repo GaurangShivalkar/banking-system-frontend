@@ -6,6 +6,9 @@ import LoginPage from './pages/login';
 import RegistrationPage from './pages/registration';
 import OtpPage from './pages/otp';
 import KycPage from './pages/kyc';
+import ForgetPassword from './pages/forgetPassword';
+import ResetPassword from './pages/resetPassword';
+import Unauthorize from './pages/unauthorize';
 
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -26,7 +29,7 @@ import AdminBeneficiaries from './pages/admin/AdminBeneficiaries';
 import AdminBranches from './pages/admin/AdminBranches';
 import AdminCustomers from './pages/admin/AdminCustomers';
 import AdminUsers from './pages/admin/AdminUser';
-import Unauthorize from './pages/Unauthorize';
+
 
 export default function App() {
 
@@ -40,7 +43,9 @@ export default function App() {
         <Route exact path="/login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/unauthorize" element={<Unauthorize />} />
-        
+        <Route path='/forgetPassword' element={<ForgetPassword />} />
+        <Route path='/resetPassword' element={<ResetPassword />} />
+
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/accounts" element={<AccountPage />} />

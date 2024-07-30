@@ -7,6 +7,7 @@ function AdminNavbarComponent() {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeItem, setActiveItem] = useState(location.pathname);
+  const refreshToken = localStorage.getItem(`refreshToken`);
 
   useEffect(() => {
     setActiveItem(location.pathname);

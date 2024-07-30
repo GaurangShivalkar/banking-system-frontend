@@ -1,8 +1,9 @@
 import axios from "../api/axiosConfig";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import swal from 'sweetalert';
 
 function OtpPage() {
   const [otp, setOTP] = useState("");
@@ -16,7 +17,7 @@ function OtpPage() {
     if (response.data == true) {
       const registrationData = JSON.parse(localStorage.getItem("registrationData"));
 
-
+      if(registrationData != null){
       // Make an API call to save user data to the backend after OTP verification
       await axios.post("/auth/register", {
         username: registrationData.username,
@@ -30,13 +31,25 @@ function OtpPage() {
 
       // Clear localStorage after successful registration
       localStorage.removeItem("registrationData");
-      alert("Otp has been successfully matched");
-      // Redirect to the KYC page or any other page after successful registration
-      navigate("/login");
+    }
+   
+      swal({
+        text: "Otp has been successfully matched",
+        icon: "success",
+        closeOnClickOutside: false
+      }).then(() => {
+        navigate("/dashboard");
+      });
+   
     }
     else {
-      toast.warning("Invalid otp", { autoClose: 3000 });
-     
+      swal({
+        text: "Entered OTP is invalid",
+        icon: "warning",
+        closeOnClickOutside: false,
+        timer: 3000
+      })
+    
     }
   };
 
@@ -64,7 +77,7 @@ function OtpPage() {
         >
           Verify OTP
         </button>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </form>
     </section>
   );

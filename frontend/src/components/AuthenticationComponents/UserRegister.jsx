@@ -6,7 +6,7 @@ function UserRegister() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const role = "USER";
+  const role = "ROLE_USER";
   const [customerId, setCustomerId] = useState("");
   const navigate = useNavigate();
 
