@@ -25,15 +25,26 @@ function ResetPassword() {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    const response = await axios.post("/auth/resetPassword?token=" + resetToken, { password: confirmPassword });
+    if (newPassword === confirmPassword) {
+      const response = await axios.post("/auth/resetPassword?token=" + resetToken, { password: confirmPassword });
 
-    swal({
-      text: response.data,
-      icon: "success",
-      closeOnClickOutside: false
-    }).then(() => {
-      window.close();
-    });
+      swal({
+        text: response.data,
+        icon: "success",
+        closeOnClickOutside: false
+      }).then(() => {
+        window.close();
+      });
+    }
+    else {
+      swal({
+        text: " Something went wrong, Please try again",
+        icon: "error",
+        closeOnClickOutside: false
+      }).then(() => {
+        navigate(-1);
+      });
+    }
   };
 
   if (resetToken === null) {
@@ -44,13 +55,14 @@ function ResetPassword() {
 
   if (validateToken === false) {
 
-    swal({
-      text: " the url is not valid or altered",
-      icon: "error",
-      closeOnClickOutside: false
-    }).then(() => {
-      navigate(-1);
-    });
+    // swal({
+    //   text: " the url is not valid or altered",
+    //   icon: "error",
+    //   closeOnClickOutside: false
+    // }).then(() => {
+    //   navigate(-1);
+    // });
+    return <p>The link is not valid</p>
 
   }
 

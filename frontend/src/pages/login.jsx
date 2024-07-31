@@ -83,6 +83,12 @@ function LoginPage() {
             Register here
           </a>
         </p>
+        <p className="text-xl text-center mt-4 text-gray-500">
+        Don't remember your password?{" "}
+          <a href="./forgetPassword" className="text-cyan-600 hover:underline">
+            Click here
+          </a>
+        </p>
       </form>
     </section>
   );
